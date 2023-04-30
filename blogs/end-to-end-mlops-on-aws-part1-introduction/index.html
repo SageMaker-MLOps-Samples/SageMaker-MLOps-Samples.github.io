@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="End-to-End MLOps on AWS: Part1 - Introduction#The upcoming series of blogs will try to explain how to build a complete MLOps system on AWS, mainly revolving around the AWS SageMaker ecosystem. The Part-1 of this blog introduces the concept of MLOps, its various constituents and the AWS services that are needed to build them.
+<meta name="description" content="End-to-End MLOps on AWS: Part1 - Introduction#Authors: Palash Nimodia, Yogendra Yatnalkar Last Edited: 01/05/2023 The upcoming series of blogs will try to explain how to build a complete MLOps system on AWS, mainly revolving around the AWS SageMaker ecosystem. The Part-1 of this blog introduces the concept of MLOps, its various constituents and the AWS services that are needed to build them.
 Prerequisite: The blog series expects the reader to have a basic understanding of the following concepts:">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="color-scheme" content="light dark"><meta property="og:title" content="End-to-End MLOps on AWS: Part1 - Introduction" />
-<meta property="og:description" content="End-to-End MLOps on AWS: Part1 - Introduction#The upcoming series of blogs will try to explain how to build a complete MLOps system on AWS, mainly revolving around the AWS SageMaker ecosystem. The Part-1 of this blog introduces the concept of MLOps, its various constituents and the AWS services that are needed to build them.
+<meta property="og:description" content="End-to-End MLOps on AWS: Part1 - Introduction#Authors: Palash Nimodia, Yogendra Yatnalkar Last Edited: 01/05/2023 The upcoming series of blogs will try to explain how to build a complete MLOps system on AWS, mainly revolving around the AWS SageMaker ecosystem. The Part-1 of this blog introduces the concept of MLOps, its various constituents and the AWS services that are needed to build them.
 Prerequisite: The blog series expects the reader to have a basic understanding of the following concepts:" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://sagemaker-mlops-samples.github.io/blogs/end-to-end-mlops-on-aws-part1-introduction/" /><meta property="article:section" content="blogs" />
@@ -18,7 +18,7 @@ Prerequisite: The blog series expects the reader to have a basic understanding o
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.f8de3645fe00591b41524aee174e19edd98a22255a2930a0cdc82a94835ba387.css" integrity="sha256-&#43;N42Rf4AWRtBUkruF04Z7dmKIiVaKTCgzcgqlINbo4c=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.164c6529b4a78e77a5c50fd649c6cc8a5d073eff528a5c88c5a0378ce1585503.js" integrity="sha256-FkxlKbSnjnelxQ/WScbMil0HPv9SilyIxaA3jOFYVQM=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.6df912a4d2f21b384bcbc75e076cb02a1fd869c671fcfd069c9e918c478986c0.js" integrity="sha256-bfkSpNLyGzhLy8deB2ywKh/YacZx/P0GnJ6RjEeJhsA=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -176,6 +176,22 @@ https://github.com/alex-shpak/hugo-book
   End-to-End MLOps on AWS: Part1 - Introduction
   <a class="anchor" href="#end-to-end-mlops-on-aws-part1---introduction">#</a>
 </h1>
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Authors: <a href="https://www.linkedin.com/in/palash-nimodia-94975b4b/">Palash Nimodia</a>, <a href="https://www.linkedin.com/in/yogendra-yatnalkar-2477b3148/">Yogendra Yatnalkar</a></td>
+</tr>
+<tr>
+<td>Last Edited: 01/05/2023</td>
+</tr>
+</tbody>
+</table>
+<hr>
 <p><em>The upcoming series of blogs will try to explain how to build a complete MLOps system on AWS, mainly revolving around the AWS SageMaker ecosystem. The Part-1 of this blog introduces the concept of MLOps, its various constituents and the AWS services that are needed to build them.</em></p>
 <p><img src="mlops-intro.png" alt="" /></p>
 <p><strong>Prerequisite</strong>: The blog series expects the reader to have a basic understanding of the following
@@ -183,8 +199,8 @@ concepts:</p>
 <ul>
 <li>Docker</li>
 <li>Basic AWS Ecosystem (S3, ECR, AWS Systems Manager Parameter Store, etc)</li>
-<li>Advance knowledge of AWS SageMaker (and experience with Bring Your Own Container—BYOC for
-sageMaker jobs and SageMaker Pipelines)</li>
+<li>Advance knowledge of AWS SageMaker (and experience with Bring Your Own Container - BYOC for
+SageMaker jobs and SageMaker Pipelines)</li>
 <li>Basics of machine learning and deep learning techniques</li>
 </ul>
 <hr>
@@ -197,7 +213,7 @@ sageMaker jobs and SageMaker Pipelines)</li>
 <li>Difficulty in scaling the tools and services around the AI ecosystem; and proving positive return on investment</li>
 <li>Difficulty in detecting drift and deciding what will be the best strategy to retrain the hosted models</li>
 <li>Complexity of governance and deployment of numerous AI models</li>
-<li>Lack of leadership support and understanding of machine learning** models**</li>
+<li>Lack of leadership support and understanding of machine learning models</li>
 </ul>
 <p><em>Most of the above listed concerns can be resolved using right MLOps practices, hence MLOps has been gaining prominence in recent years.</em></p>
 <hr>
@@ -211,11 +227,11 @@ sageMaker jobs and SageMaker Pipelines)</li>
 <li><strong>Code Version Control:</strong> Git (GitHub, GitLab, Bitbucket, etc)</li>
 <li><strong>Data Version Control:</strong> DVC, Git LFS, etc</li>
 <li><strong>Testing and building services:</strong> Jenkins, AWS CodePipeline, etc</li>
-<li><strong>Infrastructure as a code:</strong> Terraform, CloudFormation</li>
-<li><strong>Machine Learning Platform:</strong> AWS SageMaker, VertexAI</li>
+<li><strong>Infrastructure as a code:</strong> Terraform, AWS CloudFormation</li>
+<li><strong>Machine Learning Platform:</strong> AWS SageMaker, GCP VertexAI</li>
 <li><strong>Workflow Orchestration:</strong> SageMaker Pipelines, Apache Airflow, AWS Step Functions, Kubeflow</li>
 </ul>
-<p>In this series of blogs we will use SageMaker as the main toolbox and demonstrate how to manage the entire lifecycle of an ML model with automation for use cases in multiple domains.</p>
+<p>In this series of blogs, we will use SageMaker as our main toolbox. We will demonstrate how to manage the entire lifecycle of an ML model with automation for use cases in multiple domains.</p>
 <p><strong><code>NOTE: For this blog, we will only assume that we are working with batch-workload i.e the use-case will carry out batch-inference and no real-time inference. In future blogs, we will also touch upon the topic of real-time workloads.</code></strong></p>
 <hr>
 <h2 id="definitions">
@@ -246,9 +262,9 @@ sageMaker jobs and SageMaker Pipelines)</li>
 </tbody>
 </table>
 <p>With our assumption of batch-workload, let&rsquo;s define 2 pipelines, namely:</p>
-<h4 id="traininng-pipeline">
-  Traininng Pipeline:
-  <a class="anchor" href="#traininng-pipeline">#</a>
+<h4 id="training-pipeline">
+  Training Pipeline:
+  <a class="anchor" href="#training-pipeline">#</a>
 </h4>
 <ul>
 <li>The training pipeline will have a sequence of steps where the first step will process the training and validation datasets.</li>
@@ -265,7 +281,7 @@ sageMaker jobs and SageMaker Pipelines)</li>
 <li>The inference pipeline will be running in the batch-inference setting where the first step will consist of processing of production data as required by the ML model.</li>
 <li>On completion of the processing step, the processed data will be passed to the trained ML model for Scoring.</li>
 <li>The next step will include drift detection on the production data, using the data distribution artifacts from the training pipeline. If drift is detected, then retraining the ML model on a new set of data is one way to resolve it.</li>
-<li>Lastly, the explainability step will be executed to generate explainable insights from our model inference results of the production dataset.</li>
+<li>Lastly, the explainability step will be executed to generate explainable insights from our ML model on the production data.</li>
 </ul>
 <p><img src="updated-components-explained.drawio.png" alt="General Components and Pipeline" /></p>
 <p>To execute the above pipeline steps, we will have to develop the respective components.</p>
@@ -276,7 +292,7 @@ sageMaker jobs and SageMaker Pipelines)</li>
 <li>Monitoring Component</li>
 <li>Explainability Component</li>
 </ul>
-<p><strong>We recommend that every component has 2 modes, which are the <strong>Train mode</strong> and the <strong>Serve mode</strong>. This is to ensure that for every operation that the training data undergoes, there is a corresponding operation during inference.</strong></p>
+<p><strong>We recommend that every component has 2 modes, which are the <strong>Train mode</strong> and the <strong>Serve mode</strong>. This is to ensure that for every operation the training data undergoes, there is a corresponding operation during inference.</strong></p>
 <p>As the name suggests, when a component is executed in the <strong>training pipeline</strong>, it will be running in the <strong>“Train” mode.</strong> Similarly, when a component is getting executed in the <strong>inference pipeline</strong>, it will be set to run in the <strong>“Serve” mode.</strong></p>
 <hr>
 <h2 id="why-sagemaker">
@@ -287,7 +303,7 @@ sageMaker jobs and SageMaker Pipelines)</li>
 developers can quickly and easily build and train machine learning models, and then directly deploy them into
 a production-ready hosted environment.</p>
 <p>Over time SageMaker has incorporated features that have made it an end to end platform for MLOps and
-reduced the need to integrate with other tools and services.</p>
+reduced the need to integrate with other tools and services. Example:</p>
 <table>
 <thead>
 <tr>
@@ -309,7 +325,7 @@ reduced the need to integrate with other tools and services.</p>
 <td style="text-align:center">SageMaker serverless endpoint</td>
 </tr>
 <tr>
-<td style="text-align:center">AWS StepFunction of Managed MWAA</td>
+<td style="text-align:center"><a href="https://docs.aws.amazon.com/mwaa/latest/userguide/what-is-mwaa.html">AWS StepFunction of Managed MWAA</a></td>
 <td style="text-align:center">SageMaker pipelines</td>
 </tr>
 <tr>
@@ -349,19 +365,19 @@ reduced the need to integrate with other tools and services.</p>
 <ul>
 <li>We have seen how our components are developed on AWS using different types of SageMaker workloads, such as processing jobs, training jobs, batch transform jobs, and so on. To create these workloads, we have two main options:
 <ul>
-<li>Use the pre-built containers that AWS provides and maintains. We only need to write our own code scripts that define the custom logic we want to run. This is called the “script” mode of execution.</li>
-<li>Build our own custom containers that include the compute logic we want to run. Push these containers to AWS ECR and give the ECR URI as the input to the SageMaker workload. This is called the “bring your own container (BYOC)” mode of execution.</li>
+<li>Use the <strong>pre-built containers that AWS provides and maintains</strong>. We only need to write our own code scripts that define the custom logic we want to run. This is called the <strong>“script” mode of execution.</strong></li>
+<li><strong>Build our own custom containers</strong> that include the compute logic we want to run. Push these containers to <strong>AWS ECR and give the ECR URI</strong> as the input to the SageMaker workload. This is called the <strong>“bring your own container (BYOC)” mode of execution.</strong></li>
 </ul>
 </li>
-<li>To handle complex dependencies and having full control over the modules, we recommend building custom containers and using the “BYOC” mode for SageMaker workload execution.</li>
+<li><strong><code>To handle complex dependencies and having full control over the modules, we recommend building custom containers and using the “BYOC” mode for SageMaker workload execution.</code></strong></li>
 <li>For detailed information, please refer to the AWS Documentation:
 <ul>
-<li>SageMaker Processing Job (BYOC): LINK</li>
-<li>SageMaker Training Job (BYOC): LINK1 and LINK2</li>
-<li>SageMaker BatchTransform Job (BYOC): LINK</li>
+<li>SageMaker Processing Job (BYOC): <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/build-your-own-processing-container.html">LINK</a></li>
+<li>SageMaker Training Job (BYOC): <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/model-train-storage.html#model-train-storage-env-var-summary">LINK1</a> and <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/adapt-training-container.html">LINK2</a></li>
+<li>SageMaker BatchTransform Job (BYOC): <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-batch-code.html">LINK</a></li>
 </ul>
 </li>
-<li>For an end-to-end example of SageMaker workloads with custom containers, please refer to the following example: LINK</li>
+<li>For an end-to-end example of SageMaker workloads with custom containers, please refer to the following example: <a href="https://github.com/aws/amazon-sagemaker-examples/blob/main/advanced_functionality/scikit_bring_your_own/scikit_bring_your_own.ipynb">LINK</a></li>
 </ul>
 <hr>
 <h2 id="the-end">
@@ -369,7 +385,7 @@ reduced the need to integrate with other tools and services.</p>
   <a class="anchor" href="#the-end">#</a>
 </h2>
 <p>We hope that you found this blog informative and useful. To summarize, we started our blog with the definition of MLOps and then discussed its core constituents which are components and pipelines. Later, we saw in detail what is the role of each component and how they can be developed. We ended our blog with discussion around BYOC, its importance and example links.</p>
-<p><strong>Please provide us your valuable feedback and stay tuned. The upcoming blogs will be released soon.</strong></p>
+<p><strong><code>Please provide us your valuable feedback and stay tuned. The upcoming blogs will be released soon.</code></strong></p>
 </article>
  
       
