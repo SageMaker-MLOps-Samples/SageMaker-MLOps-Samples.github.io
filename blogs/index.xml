@@ -7,12 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language><atom:link href="https://sagemaker-mlops-samples.github.io/blogs/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>E2E MLOps on AWS: P2 - Computer Vision Simulation with Drift &amp; Retraining</title>
+      <link>https://sagemaker-mlops-samples.github.io/blogs/e2e-mlops-on-aws-p2-cv-simulation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sagemaker-mlops-samples.github.io/blogs/e2e-mlops-on-aws-p2-cv-simulation/</guid>
+      <description>End-to-End MLOPS on AWS: Part2 - Computer Vision Simulation with Drift &amp;amp; Retraining#Authors: Palash Nimodia, Yogendra YatnalkarLast Edited: 02/05/2023 Previous Blog Link: End-to-End MLOps on AWS: Part1 - IntroductionIn our previous blog, we explored the concept of MLOps and its core elements which are components and pipelines. In this second part of our series, we will demonstrate how we created a comprehensive simulation for computer-vision batch workloads and later present the results of the same.</description>
+    </item>
+    
+    <item>
       <title>End-to-End MLOps on AWS: Part1 - Introduction</title>
       <link>https://sagemaker-mlops-samples.github.io/blogs/end-to-end-mlops-on-aws-part1-introduction/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://sagemaker-mlops-samples.github.io/blogs/end-to-end-mlops-on-aws-part1-introduction/</guid>
-      <description>End-to-End MLOps on AWS: Part1 - Introduction#Authors: Palash Nimodia, Yogendra Yatnalkar Last Edited: 01/05/2023 The upcoming series of blogs will try to explain how to build a complete MLOps system on AWS, mainly revolving around the AWS SageMaker ecosystem. The Part-1 of this blog introduces the concept of MLOps, its various constituents and the AWS services that are needed to build them.
+      <description>End-to-End MLOps on AWS: Part1 - Introduction#Authors: Palash Nimodia, Yogendra YatnalkarLast Edited: 01/05/2023 The upcoming series of blogs will try to explain how to build a complete MLOps system on AWS, mainly revolving around the AWS SageMaker ecosystem. The Part-1 of this blog introduces the concept of MLOps, its various constituents and the AWS services that are needed to build them.
 Prerequisite: The blog series expects the reader to have a basic understanding of the following concepts:</description>
     </item>
     

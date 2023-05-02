@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="End-to-End MLOps on AWS: Part1 - Introduction#Authors: Palash Nimodia, Yogendra Yatnalkar Last Edited: 01/05/2023 The upcoming series of blogs will try to explain how to build a complete MLOps system on AWS, mainly revolving around the AWS SageMaker ecosystem. The Part-1 of this blog introduces the concept of MLOps, its various constituents and the AWS services that are needed to build them.
+<meta name="description" content="End-to-End MLOps on AWS: Part1 - Introduction#Authors: Palash Nimodia, Yogendra YatnalkarLast Edited: 01/05/2023 The upcoming series of blogs will try to explain how to build a complete MLOps system on AWS, mainly revolving around the AWS SageMaker ecosystem. The Part-1 of this blog introduces the concept of MLOps, its various constituents and the AWS services that are needed to build them.
 Prerequisite: The blog series expects the reader to have a basic understanding of the following concepts:">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="color-scheme" content="light dark"><meta property="og:title" content="End-to-End MLOps on AWS: Part1 - Introduction" />
-<meta property="og:description" content="End-to-End MLOps on AWS: Part1 - Introduction#Authors: Palash Nimodia, Yogendra Yatnalkar Last Edited: 01/05/2023 The upcoming series of blogs will try to explain how to build a complete MLOps system on AWS, mainly revolving around the AWS SageMaker ecosystem. The Part-1 of this blog introduces the concept of MLOps, its various constituents and the AWS services that are needed to build them.
+<meta property="og:description" content="End-to-End MLOps on AWS: Part1 - Introduction#Authors: Palash Nimodia, Yogendra YatnalkarLast Edited: 01/05/2023 The upcoming series of blogs will try to explain how to build a complete MLOps system on AWS, mainly revolving around the AWS SageMaker ecosystem. The Part-1 of this blog introduces the concept of MLOps, its various constituents and the AWS services that are needed to build them.
 Prerequisite: The blog series expects the reader to have a basic understanding of the following concepts:" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://sagemaker-mlops-samples.github.io/blogs/end-to-end-mlops-on-aws-part1-introduction/" /><meta property="article:section" content="blogs" />
@@ -18,7 +18,7 @@ Prerequisite: The blog series expects the reader to have a basic understanding o
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.f8de3645fe00591b41524aee174e19edd98a22255a2930a0cdc82a94835ba387.css" integrity="sha256-&#43;N42Rf4AWRtBUkruF04Z7dmKIiVaKTCgzcgqlINbo4c=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.6df912a4d2f21b384bcbc75e076cb02a1fd869c671fcfd069c9e918c478986c0.js" integrity="sha256-bfkSpNLyGzhLy8deB2ywKh/YacZx/P0GnJ6RjEeJhsA=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.1f8b394f1468de966dddcd942a7fd56dabce5e523bc98f84fcf0bedc9b42d4ca.js" integrity="sha256-H4s5TxRo3pZt3c2UKn/VbavOXlI7yY&#43;E/PC&#43;3JtC1Mo=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -77,6 +77,19 @@ https://github.com/alex-shpak/hugo-book
 
           
   <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/blogs/e2e-mlops-on-aws-p2-cv-simulation/" class="">E2E MLOps on AWS: P2 - Computer Vision Simulation with Drift &amp; Retraining</a>
+  
+
+        </li>
+      
     
       
         <li>
@@ -184,7 +197,9 @@ https://github.com/alex-shpak/hugo-book
 </thead>
 <tbody>
 <tr>
-<td>Authors: <a href="https://www.linkedin.com/in/palash-nimodia-94975b4b/">Palash Nimodia</a>, <a href="https://www.linkedin.com/in/yogendra-yatnalkar-2477b3148/">Yogendra Yatnalkar</a></td>
+<td>Authors: <a href="https://www.linkedin.com/in/palash-nimodia-94975b4b/" target="_blank" rel="noopener">Palash Nimodia</a>
+, <a href="https://www.linkedin.com/in/yogendra-yatnalkar-2477b3148/" target="_blank" rel="noopener">Yogendra Yatnalkar</a>
+</td>
 </tr>
 <tr>
 <td>Last Edited: 01/05/2023</td>
@@ -325,7 +340,8 @@ reduced the need to integrate with other tools and services. Example:</p>
 <td style="text-align:center">SageMaker serverless endpoint</td>
 </tr>
 <tr>
-<td style="text-align:center"><a href="https://docs.aws.amazon.com/mwaa/latest/userguide/what-is-mwaa.html">AWS StepFunction of Managed MWAA</a></td>
+<td style="text-align:center"><a href="https://docs.aws.amazon.com/mwaa/latest/userguide/what-is-mwaa.html" target="_blank" rel="noopener">AWS StepFunction of Managed MWAA</a>
+</td>
 <td style="text-align:center">SageMaker pipelines</td>
 </tr>
 <tr>
@@ -372,12 +388,17 @@ reduced the need to integrate with other tools and services. Example:</p>
 <li><strong><code>To handle complex dependencies and having full control over the modules, we recommend building custom containers and using the “BYOC” mode for SageMaker workload execution.</code></strong></li>
 <li>For detailed information, please refer to the AWS Documentation:
 <ul>
-<li>SageMaker Processing Job (BYOC): <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/build-your-own-processing-container.html">LINK</a></li>
-<li>SageMaker Training Job (BYOC): <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/model-train-storage.html#model-train-storage-env-var-summary">LINK1</a> and <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/adapt-training-container.html">LINK2</a></li>
-<li>SageMaker BatchTransform Job (BYOC): <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-batch-code.html">LINK</a></li>
+<li>SageMaker Processing Job (BYOC): <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/build-your-own-processing-container.html" target="_blank" rel="noopener">LINK</a>
+</li>
+<li>SageMaker Training Job (BYOC): <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/model-train-storage.html#model-train-storage-env-var-summary" target="_blank" rel="noopener">LINK1</a>
+ and <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/adapt-training-container.html" target="_blank" rel="noopener">LINK2</a>
+</li>
+<li>SageMaker BatchTransform Job (BYOC): <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-batch-code.html" target="_blank" rel="noopener">LINK</a>
+</li>
 </ul>
 </li>
-<li>For an end-to-end example of SageMaker workloads with custom containers, please refer to the following example: <a href="https://github.com/aws/amazon-sagemaker-examples/blob/main/advanced_functionality/scikit_bring_your_own/scikit_bring_your_own.ipynb">LINK</a></li>
+<li>For an end-to-end example of SageMaker workloads with custom containers, please refer to the following example: <a href="https://github.com/aws/amazon-sagemaker-examples/blob/main/advanced_functionality/scikit_bring_your_own/scikit_bring_your_own.ipynb" target="_blank" rel="noopener">LINK</a>
+</li>
 </ul>
 <hr>
 <h2 id="the-end">
