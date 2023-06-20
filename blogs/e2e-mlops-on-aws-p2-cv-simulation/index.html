@@ -5,18 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="End-to-End MLOPS on AWS: Part2 - Computer Vision Simulation with Drift &amp; Retraining#Authors: Palash Nimodia, Yogendra YatnalkarLast Edited: 02/05/2023 Previous Blog Link: End-to-End MLOps on AWS: Part1 - IntroductionIn our previous blog, we explored the concept of MLOps and its core elements which are components and pipelines. In this second part of our series, we will demonstrate how we created a comprehensive simulation for computer-vision batch workloads and later present the results of the same.">
 <meta name="theme-color" content="#FFFFFF">
-<meta name="color-scheme" content="light dark"><meta property="og:title" content="E2E MLOps on AWS: P2 - Computer Vision Simulation with Drift &amp; Retraining" />
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="E2E MLOps on AWS: Part2 - Computer Vision Simulation with Drift &amp; Retraining" />
 <meta property="og:description" content="End-to-End MLOPS on AWS: Part2 - Computer Vision Simulation with Drift &amp; Retraining#Authors: Palash Nimodia, Yogendra YatnalkarLast Edited: 02/05/2023 Previous Blog Link: End-to-End MLOps on AWS: Part1 - IntroductionIn our previous blog, we explored the concept of MLOps and its core elements which are components and pipelines. In this second part of our series, we will demonstrate how we created a comprehensive simulation for computer-vision batch workloads and later present the results of the same." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://sagemaker-mlops-samples.github.io/blogs/e2e-mlops-on-aws-p2-cv-simulation/" /><meta property="article:section" content="blogs" />
 
 
-<title>E2E MLOps on AWS: P2 - Computer Vision Simulation with Drift &amp; Retraining | MLOps-On-AWS</title>
+<title>E2E MLOps on AWS: Part2 - Computer Vision Simulation with Drift &amp; Retraining | MLOps-On-AWS</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.f8de3645fe00591b41524aee174e19edd98a22255a2930a0cdc82a94835ba387.css" integrity="sha256-&#43;N42Rf4AWRtBUkruF04Z7dmKIiVaKTCgzcgqlINbo4c=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.1f8b394f1468de966dddcd942a7fd56dabce5e523bc98f84fcf0bedc9b42d4ca.js" integrity="sha256-H4s5TxRo3pZt3c2UKn/VbavOXlI7yY&#43;E/PC&#43;3JtC1Mo=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.863b4c6d84fa8e1e5bcba183ca431659ef1d7ea39d62cb990c3b3dd0473a0e57.js" integrity="sha256-hjtMbYT6jh5by6GDykMWWe8dfqOdYsuZDDs90Ec6Dlc=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -83,7 +83,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/blogs/e2e-mlops-on-aws-p2-cv-simulation/" class="active">E2E MLOps on AWS: P2 - Computer Vision Simulation with Drift &amp; Retraining</a>
+    <a href="/blogs/end-to-end-mlops-on-aws-part1-introduction/" class="">E2E MLOps on AWS: Part1 - Introduction</a>
   
 
         </li>
@@ -96,7 +96,20 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/blogs/end-to-end-mlops-on-aws-part1-introduction/" class="">End-to-End MLOps on AWS: Part1 - Introduction</a>
+    <a href="/blogs/e2e-mlops-on-aws-p2-cv-simulation/" class="active">E2E MLOps on AWS: Part2 - Computer Vision Simulation with Drift &amp; Retraining</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/blogs/e2e-mlops-on-aws-p3-cv-components/" class="">E2E MLOps on AWS: Part3 - Computer Vision Components Deep Dive</a>
   
 
         </li>
@@ -143,7 +156,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>E2E MLOps on AWS: P2 - Computer Vision Simulation with Drift &amp; Retraining</strong>
+  <strong>E2E MLOps on AWS: Part2 - Computer Vision Simulation with Drift &amp; Retraining</strong>
 
   <label for="toc-control">
     
@@ -229,11 +242,11 @@ https://github.com/alex-shpak/hugo-book
 </ul>
 </li>
 </ul>
-<p><strong><code>The upcoming blogs will discuss the components and pipelines in detail (stay tuned)</code></strong></p>
+<p><strong><code>The upcoming blogs will discuss regarding components and pipelines in detail (stay tuned)</code></strong></p>
 <table>
 <thead>
 <tr>
-<th style="text-align:center"><img src="img1.png" alt="MLOps system overview" /></th>
+<th style="text-align:center"><img src="mlops-lifecycle.png" alt="MLOps system overview" /></th>
 </tr>
 </thead>
 <tbody>
