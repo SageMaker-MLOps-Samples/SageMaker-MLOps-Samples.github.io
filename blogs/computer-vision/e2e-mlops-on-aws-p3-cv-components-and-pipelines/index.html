@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="End-to-End MLOPS on AWS: Part3 - Computer Vision Components and Pipelines Deep Dive#Authors: Palash Nimodia, Yogendra YatnalkarLast Edited: 20/06/2023 Previous Blog Link: E2E MLOps on AWS: Part2 - Computer Vision Simulation with Drift &amp; RetrainingIn part 2 of our series, we gave a high-level overview of an MLOps system that handles large-scale image classification, end-to-end simulation and retraining evaluation to address drift. In this part 3, we will dive deeper into the computer vision components and pipelines that make up this system.">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="E2E MLOps on AWS: P3 - CV Components and Pipelines Deep Dive" />
+<meta property="og:description" content="End-to-End MLOPS on AWS: Part3 - Computer Vision Components and Pipelines Deep Dive#Authors: Palash Nimodia, Yogendra YatnalkarLast Edited: 20/06/2023 Previous Blog Link: E2E MLOps on AWS: Part2 - Computer Vision Simulation with Drift &amp; RetrainingIn part 2 of our series, we gave a high-level overview of an MLOps system that handles large-scale image classification, end-to-end simulation and retraining evaluation to address drift. In this part 3, we will dive deeper into the computer vision components and pipelines that make up this system." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://sagemaker-mlops-samples.github.io/blogs/computer-vision/e2e-mlops-on-aws-p3-cv-components-and-pipelines/" /><meta property="article:section" content="blogs" />
+
+
+<title>E2E MLOps on AWS: P3 - CV Components and Pipelines Deep Dive | MLOps On AWS</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.f8de3645fe00591b41524aee174e19edd98a22255a2930a0cdc82a94835ba387.css" integrity="sha256-&#43;N42Rf4AWRtBUkruF04Z7dmKIiVaKTCgzcgqlINbo4c=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.45221aa0c62e0472d727e3a8ede8cba678e23a5c9f4ef8eea7cf9b73113c6fa0.js" integrity="sha256-RSIaoMYuBHLXJ&#43;Oo7ejLpnjiOlyfTvjup8&#43;bcxE8b6A=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>MLOps On AWS</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+  
+  <ul>
+    
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <a href="/blogs/" class="">Blogs</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/blogs/end-to-end-mlops-on-aws-part1-introduction/" class="">E2E MLOps on AWS: Part1 - Introduction</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-03ef094eb464fab36e40fac2dc8cc6fd" class="toggle" checked />
+    <label for="section-03ef094eb464fab36e40fac2dc8cc6fd" class="flex justify-between">
+      <a role="button" class="">Computer Vision</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/blogs/computer-vision/e2e-mlops-on-aws-p2-cv-simulation/" class="">E2E MLOps on AWS: P2 - CV Simulation with Drift &amp; Retraining</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/blogs/computer-vision/e2e-mlops-on-aws-p3-cv-components-and-pipelines/" class="active">E2E MLOps on AWS: P3 - CV Components and Pipelines Deep Dive</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>E2E MLOps on AWS: P3 - CV Components and Pipelines Deep Dive</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#quick-recap">Quick Recap:</a></li>
+    <li><a href="#components-in-detail">Components in detail:</a>
+      <ul>
+        <li><a href="#1-processing-component">1. <strong>Processing Component</strong>:</a></li>
+        <li><a href="#2-algorithm-component">2. <strong>Algorithm Component</strong>:</a></li>
+        <li><a href="#3-monitoring-component">3. <strong>Monitoring Component</strong>:</a></li>
+        <li><a href="#4-explainability-component">4. <strong>Explainability Component</strong>:</a></li>
+      </ul>
+    </li>
+    <li><a href="#pipelines-in-detail">Pipelines in detail:</a>
+      <ul>
+        <li><a href="#about-sagemaker-pipelines">About SageMaker Pipelines:</a></li>
+      </ul>
+    </li>
+    <li><a href="#the-end">The END</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="end-to-end-mlops-on-aws-part3---computer-vision-components-and-pipelines-deep-dive">
+  End-to-End MLOPS on AWS: Part3 - Computer Vision Components and Pipelines Deep Dive
+  <a class="anchor" href="#end-to-end-mlops-on-aws-part3---computer-vision-components-and-pipelines-deep-dive">#</a>
+</h1>
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Authors: <a href="https://www.linkedin.com/in/palash-nimodia-94975b4b/" target="_blank" rel="noopener">Palash Nimodia</a>
+, <a href="https://www.linkedin.com/in/yogendra-yatnalkar-2477b3148/" target="_blank" rel="noopener">Yogendra Yatnalkar</a>
+</td>
+</tr>
+<tr>
+<td>Last Edited: 20/06/2023</td>
+</tr>
+<tr>
+<td>Previous Blog Link: <a href="../e2e-mlops-on-aws-p2-cv-simulation/">E2E MLOps on AWS: Part2 - Computer Vision Simulation with Drift &amp; Retraining</a>
+</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><em>In part 2 of our series, we gave a high-level overview of an MLOps system that handles large-scale image classification, end-to-end simulation and retraining evaluation to address drift. In this part 3, we will dive deeper into the computer vision components and pipelines that make up this system. Specifically, we will cover: how we designed components for batch workloads, how we implemented them on AWS using SageMaker and how we orchestrated them into MLOps pipelines using SageMaker Pipelines.</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="cv-components-on-sagemaker.png" alt="Component Mode and SageMaker Service" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Component Mode and SageMaker Service</td>
+</tr>
+</tbody>
+</table>
+<h2 id="quick-recap">
+  Quick Recap:
+  <a class="anchor" href="#quick-recap">#</a>
+</h2>
+<p>A <strong>component</strong> is an independent ML functionality or an ML operation which is a part of the larger process. A <strong>pipeline</strong> is a workflow which constitutes one or more components that execute a holistic task.</p>
+<p>There are <strong>4 components</strong> and <strong>2 pipelines</strong> as seen from image above, where each component has 2 modes, which are:</p>
+<ul>
+<li><strong>Train mode</strong> and <strong>Serve mode</strong>.</li>
+</ul>
+<p>Each component mode will be executed with any one of the following <strong>Sagemaker Job</strong> which are:</p>
+<ul>
+<li>SageMaker Training Job or</li>
+<li>SageMaker Processing Job or</li>
+<li>SageMaker BatchTransform Job</li>
+</ul>
+<p>As discussed in part1 of our blog, all the sagemaker workloads are developed using docker <strong>containers (BYOC - Bring Your Own Container</strong>).</p>
+<h2 id="components-in-detail">
+  Components in detail:
+  <a class="anchor" href="#components-in-detail">#</a>
+</h2>
+<h3 id="1-processing-component">
+  1. <strong>Processing Component</strong>:
+  <a class="anchor" href="#1-processing-component">#</a>
+</h3>
+<p>The processing component handles batch processing of large amounts of image data, using various data augmentation techniques. The batch-processing is usually performed before model training and inference.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="processing-component-sagemaker.png" alt="Processing Component Lifecycle" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Processing Component Lifecycle</td>
+</tr>
+</tbody>
+</table>
+<p>On AWS, the processing component will be built using <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/build-your-own-processing-container.html" target="_blank" rel="noopener"><strong>Amazon Sagemaker Processing Jobs</strong> (link)</a>
+. On completion of the SageMaker Processing job, the output processed data in saved back in AWS S3.</p>
+<p>In the <strong>train mode</strong>, the processing job will transform train and validation data and in the <strong>serve mode</strong>, it will transform the production images.</p>
+<h3 id="2-algorithm-component">
+  2. <strong>Algorithm Component</strong>:
+  <a class="anchor" href="#2-algorithm-component">#</a>
+</h3>
+<p>The algorithm component performs 2 major tasks, which are <strong>model training</strong> and <strong>model inference</strong>.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="algorithm-component-sagemaker.png" alt="Algorithm Component Lifecycle" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Algorithm Component Lifecycle</td>
+</tr>
+</tbody>
+</table>
+<p>Unlike processing component, the 2 modes of algorithm component will perform completely different tasks.</p>
+<ul>
+<li>
+<p>The <strong>train mode</strong> will perform the task of <strong>ML model training</strong> on the training-dataset and computing the evaluation metric on the validation-dataset. Based on the ML model used, the train mode will also support <strong>model retraining capabilities</strong>. On AWS, the train mode of the algorithm component will be implemented using <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/train-model.html" target="_blank" rel="noopener"><strong>Sagemaker Training Job</strong></a>
+   .</p>
+</li>
+<li>
+<p>In <strong>serve mode</strong>, the production data is fed into the trained ML model for prediction. This model is the same one that was <strong>trained in train mode</strong>. On AWS, the serve mode of the algorithm component will be implemented using <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform.html" target="_blank" rel="noopener"><strong>Sagemaker BatchTransform Job</strong></a>
+.</p>
+</li>
+</ul>
+<p><strong><code>The data input to the algorithm component is processed train, validation or production data that are the outputs of the processing component.</code></strong></p>
+<h3 id="3-monitoring-component">
+  3. <strong>Monitoring Component</strong>:
+  <a class="anchor" href="#3-monitoring-component">#</a>
+</h3>
+<p><strong>Model monitoring</strong> refers to the process of closely tracking the performance of machine learning models in production. It enables us to detect any technical or performance issues, but mainly it is <strong>used to detect drift</strong>. There are two main types of drift:</p>
+<ul>
+<li><strong>Data drift:</strong> Drift when characteristics of the underlying data on which the model has trained changes over time.</li>
+<li><strong>Concept Drift:</strong> Concept drift occurs when the characteristics of the target variable and its relationship with the training variables itself changes overtime.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="monitoring-component-sagemaker.png" alt="Monitoring Component Lifecycle" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Monitoring Component Lifecycle</td>
+</tr>
+</tbody>
+</table>
+<p>On AWS, both the <strong>train</strong> and <strong>serve</strong> mode of the monitoring component are developed using <strong>SageMaker Processing Job</strong>.</p>
+<ul>
+<li>In the <strong>train</strong> mode, the processing job learns the training images data distribution and saves it in a file which is also known as <strong>drift detection artifacts</strong>.</li>
+<li>In the <strong>serve</strong> mode, using the <strong>drift</strong> artifacts from the train mode, <strong>drift is identified on the production data</strong>.</li>
+</ul>
+<p><strong><code>The data input to the monitoring component is usually the raw data itself, as augmentations performed by the processing component might change the input data distribution.</code></strong></p>
+<h3 id="4-explainability-component">
+  4. <strong>Explainability Component</strong>:
+  <a class="anchor" href="#4-explainability-component">#</a>
+</h3>
+<p>As the name suggests, the explainability component is used to understand the <strong>model interpretability and cause of its inference decision</strong> behind every inferred data sample. In any production MLOps system, explainable AI is very important as it <strong>adds accountability and compliance</strong> to our production system.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="explainability-component-sagemaker.png" alt="Explainability Component Lifecycle" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Explainability Component Lifecycle</td>
+</tr>
+</tbody>
+</table>
+<p>On AWS, both the <strong>train</strong> and <strong>serve</strong> mode of the explainability component are developed using <strong>SageMaker Processing Job</strong>.</p>
+<p><strong><code>The data input to the explainability component is processed train, validation or production data which are the outputs of the processing component.</code></strong></p>
+<p>The second input during both the modes of the processing job is the trained ML model itself, which is the output of the <strong>algorithm component train mode.</strong></p>
+<p>In our case of CV image classification, the explainability component computes the <strong>integrated gradients</strong> for each data sample, from the production data in <strong>serve mode</strong> and training data in <strong>train mode</strong> using the <strong>trained classification model</strong>.</p>
+<h2 id="pipelines-in-detail">
+  Pipelines in detail:
+  <a class="anchor" href="#pipelines-in-detail">#</a>
+</h2>
+<p>From the image classification use-case (part-2 blog), we are already aware that we have 2 pipelines which are:</p>
+<ul>
+<li><strong>Training Pipeline</strong></li>
+<li><strong>Batch-Inference Pipeline</strong></li>
+</ul>
+<p>The 2 pipelines seen in the below image are developed using <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/pipelines-sdk.html" target="_blank" rel="noopener">AWS SageMaker Pipelines (LINK)</a>
+</p>
+<h3 id="about-sagemaker-pipelines">
+  About SageMaker Pipelines:
+  <a class="anchor" href="#about-sagemaker-pipelines">#</a>
+</h3>
+<p><em>An Amazon SageMaker Model Building Pipelines pipeline is a series of interconnected steps that are defined using the Pipelines SDK. This pipeline definition encodes a pipeline using a directed acyclic graph (DAG) that can be exported as a JSON definition. This DAG gives information on the requirements for and relationships between each step of defined pipeline. The structure of a pipeline&rsquo;s DAG is determined by the data dependencies between steps.</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="pipeline.png" alt="SageMaker Pipelines" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">SageMaker Pipelines</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>We have already seen that each component has 2 modes of executions, which are the <strong>&ldquo;Train&rdquo;</strong> mode and <strong>&ldquo;Serve&rdquo;</strong> mode. All the components chained together in the <strong>training</strong> pipeline are set to run in the <strong>&ldquo;Train&rdquo;</strong> mode. Similarly, all the components chained together in the <strong>batch-inference</strong> pipeline are set to run in the <strong>&ldquo;Serve&rdquo;</strong> mode.</p>
+</li>
+<li>
+<p>The inputs and outputs of each pipeline execution are stored in <strong>AWS S3</strong>. The S3 paths are then updated in <strong>AWS Parameter Store</strong>. <em><strong>This allows components from different pipelines to access each other&rsquo;s outputs</strong></em>. The Parameter Store keys have a fixed prefix for each component output.</p>
+</li>
+<li>
+<p>As we learned in blog 2 (part 2), the batch-inference pipeline runs on a schedule. We used <strong>AWS EventBridge</strong> to set up this scheduled trigger for the SageMaker pipeline.</p>
+</li>
+<li>
+<p>On the other hand, we saw that when drift was detected in the batch-inference pipeline, the training pipeline was triggered automatically to tackle drift. This automatic trigger is carried out using <strong>AWS Lambda Function</strong>.</p>
+</li>
+<li>
+<p>The component execution and pipeline execution logs are pushed to <strong>AWS CloudWatch</strong>.</p>
+</li>
+<li>
+<p>The containers used to execute individual components are stored in <strong>AWS ECR (Elastic Container Registry)</strong>.</p>
+</li>
+</ul>
+<h2 id="the-end">
+  The END
+  <a class="anchor" href="#the-end">#</a>
+</h2>
+<p>Thank you for reading this blog. We hope you gained some new and valuable insights from it. In this blog, we explained the different components of our project and how we developed them on AWS. We also showed you how we used SageMaker Pipelines to orchestrate the workflow and automate the deployment.</p>
+<p><strong><code>Please provide us your valuable feedback and stay tuned. The code for the components and pipelines will be released soon....</code></strong></p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments"><script src="https://utteranc.es/client.js"
+        repo="SageMaker-MLOps-Samples/SageMaker-MLOps-Samples.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script></div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#quick-recap">Quick Recap:</a></li>
+    <li><a href="#components-in-detail">Components in detail:</a>
+      <ul>
+        <li><a href="#1-processing-component">1. <strong>Processing Component</strong>:</a></li>
+        <li><a href="#2-algorithm-component">2. <strong>Algorithm Component</strong>:</a></li>
+        <li><a href="#3-monitoring-component">3. <strong>Monitoring Component</strong>:</a></li>
+        <li><a href="#4-explainability-component">4. <strong>Explainability Component</strong>:</a></li>
+      </ul>
+    </li>
+    <li><a href="#pipelines-in-detail">Pipelines in detail:</a>
+      <ul>
+        <li><a href="#about-sagemaker-pipelines">About SageMaker Pipelines:</a></li>
+      </ul>
+    </li>
+    <li><a href="#the-end">The END</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

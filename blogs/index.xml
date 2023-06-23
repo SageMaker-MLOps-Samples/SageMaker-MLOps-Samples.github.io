@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Blogs on MLOps-On-AWS</title>
+    <title>Blogs on MLOps On AWS</title>
     <link>https://sagemaker-mlops-samples.github.io/blogs/</link>
-    <description>Recent content in Blogs on MLOps-On-AWS</description>
+    <description>Recent content in Blogs on MLOps On AWS</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language><atom:link href="https://sagemaker-mlops-samples.github.io/blogs/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -14,24 +14,6 @@
       <guid>https://sagemaker-mlops-samples.github.io/blogs/end-to-end-mlops-on-aws-part1-introduction/</guid>
       <description>End-to-End MLOps on AWS: Part1 - Introduction#Authors: Palash Nimodia, Yogendra YatnalkarLast Edited: 01/05/2023 The upcoming series of blogs will try to explain how to build a complete MLOps system on AWS, mainly revolving around the AWS SageMaker ecosystem. The Part-1 of this blog introduces the concept of MLOps, its various constituents and the AWS services that are needed to build them.
 Prerequisite: The blog series expects the reader to have a basic understanding of the following concepts:</description>
-    </item>
-    
-    <item>
-      <title>E2E MLOps on AWS: Part2 - Computer Vision Simulation with Drift &amp; Retraining</title>
-      <link>https://sagemaker-mlops-samples.github.io/blogs/e2e-mlops-on-aws-p2-cv-simulation/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://sagemaker-mlops-samples.github.io/blogs/e2e-mlops-on-aws-p2-cv-simulation/</guid>
-      <description>End-to-End MLOPS on AWS: Part2 - Computer Vision Simulation with Drift &amp;amp; Retraining#Authors: Palash Nimodia, Yogendra YatnalkarLast Edited: 02/05/2023 Previous Blog Link: End-to-End MLOps on AWS: Part1 - IntroductionIn our previous blog, we explored the concept of MLOps and its core elements which are components and pipelines. In this second part of our series, we will demonstrate how we created a comprehensive simulation for computer-vision batch workloads and later present the results of the same.</description>
-    </item>
-    
-    <item>
-      <title>E2E MLOps on AWS: Part3 - Computer Vision Components and Pipelines Deep Dive</title>
-      <link>https://sagemaker-mlops-samples.github.io/blogs/e2e-mlops-on-aws-p3-cv-components-and-pipelines/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://sagemaker-mlops-samples.github.io/blogs/e2e-mlops-on-aws-p3-cv-components-and-pipelines/</guid>
-      <description>End-to-End MLOPS on AWS: Part3 - Computer Vision Components and Pipelines Deep Dive#Authors: Palash Nimodia, Yogendra YatnalkarLast Edited: 20/06/2023 Previous Blog Link: E2E MLOps on AWS: Part2 - Computer Vision Simulation with Drift &amp;amp; RetrainingIn our previous blog (part 2), we saw a high level overview of an MLOps system for large-scale image classification, end-to-end simulation and retraining evaluation to tackle drift. In this part 3 of our series, we will explore the computer vision components in detail: how we developed them for batch workloads and how we built them on AWS using SageMaker.</description>
     </item>
     
   </channel>
