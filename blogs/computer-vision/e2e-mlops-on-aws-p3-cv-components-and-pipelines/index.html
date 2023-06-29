@@ -16,7 +16,7 @@
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.f8de3645fe00591b41524aee174e19edd98a22255a2930a0cdc82a94835ba387.css" integrity="sha256-&#43;N42Rf4AWRtBUkruF04Z7dmKIiVaKTCgzcgqlINbo4c=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.45221aa0c62e0472d727e3a8ede8cba678e23a5c9f4ef8eea7cf9b73113c6fa0.js" integrity="sha256-RSIaoMYuBHLXJ&#43;Oo7ejLpnjiOlyfTvjup8&#43;bcxE8b6A=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.30abec4e05ad68506d92cf53a51ddc3ce62ed2aaa6078ad8e2ebeffe51c2b73d.js" integrity="sha256-MKvsTgWtaFBtks9TpR3cPOYu0qqmB4rY4uvv/lHCtz0=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -298,9 +298,18 @@ https://github.com/alex-shpak/hugo-book
 </tr>
 </tbody>
 </table>
+<ul>
+<li>
 <p>On AWS, the processing component will be built using <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/build-your-own-processing-container.html" target="_blank" rel="noopener"><strong>Amazon Sagemaker Processing Jobs</strong> (link)</a>
 . On completion of the SageMaker Processing job, the output processed data in saved back in AWS S3.</p>
+</li>
+<li>
 <p>In the <strong>train mode</strong>, the processing job will transform train and validation data and in the <strong>serve mode</strong>, it will transform the production images.</p>
+</li>
+<li>
+<p>In our processing component, the augmentation pipeline performed <strong>image resizing</strong> for both modes, while <strong>random rotation</strong> was only applied to <strong>train mode</strong>.</p>
+</li>
+</ul>
 <h3 id="2-algorithm-component">
   2. <strong>Algorithm Component</strong>:
   <a class="anchor" href="#2-algorithm-component">#</a>
@@ -322,7 +331,7 @@ https://github.com/alex-shpak/hugo-book
 <ul>
 <li>
 <p>The <strong>train mode</strong> will perform the task of <strong>ML model training</strong> on the training-dataset and computing the evaluation metric on the validation-dataset. Based on the ML model used, the train mode will also support <strong>model retraining capabilities</strong>. On AWS, the train mode of the algorithm component will be implemented using <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/train-model.html" target="_blank" rel="noopener"><strong>Sagemaker Training Job</strong></a>
-   .</p>
+. In our use-case, we had <strong>trained a CNN model with ResNet</strong> as the base pre-trained model (ReseNet 50/100/150).</p>
 </li>
 <li>
 <p>In <strong>serve mode</strong>, the production data is fed into the trained ML model for prediction. This model is the same one that was <strong>trained in train mode</strong>. On AWS, the serve mode of the algorithm component will be implemented using <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform.html" target="_blank" rel="noopener"><strong>Sagemaker BatchTransform Job</strong></a>
@@ -339,6 +348,7 @@ https://github.com/alex-shpak/hugo-book
 <li><strong>Data drift:</strong> Drift when characteristics of the underlying data on which the model has trained changes over time.</li>
 <li><strong>Concept Drift:</strong> Concept drift occurs when the characteristics of the target variable and its relationship with the training variables itself changes overtime.</li>
 </ul>
+<p>The easiest way to tackle drift (mainly data-drift) is by model retraining on the newly updated data.</p>
 <table>
 <thead>
 <tr>
@@ -356,6 +366,22 @@ https://github.com/alex-shpak/hugo-book
 <li>In the <strong>train</strong> mode, the processing job learns the training images data distribution and saves it in a file which is also known as <strong>drift detection artifacts</strong>.</li>
 <li>In the <strong>serve</strong> mode, using the <strong>drift</strong> artifacts from the train mode, <strong>drift is identified on the production data</strong>.</li>
 </ul>
+<p>There are various popular algorithms/methods to develop a drift detection solution which can be seen from the below image:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="drift-detection-methods.png" alt="Ways to detect drift" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Ways to detect drift</td>
+</tr>
+</tbody>
+</table>
+<p>In our monitoring component, we had used the <a href="https://en.wikipedia.org/wiki/Kolmogorov%E2%80%93Smirnov_test" target="_blank" rel="noopener"><strong>Kolmogorov Smirnov</strong></a>
+ statistical test to identify drift between two probability distributions. This was implemented using a popular python package known as: <a href="https://github.com/SeldonIO/alibi-detect" target="_blank" rel="noopener"><strong>alibi-detect</strong></a>
+</p>
 <p><strong><code>The data input to the monitoring component is usually the raw data itself, as augmentations performed by the processing component might change the input data distribution.</code></strong></p>
 <h3 id="4-explainability-component">
   4. <strong>Explainability Component</strong>:
