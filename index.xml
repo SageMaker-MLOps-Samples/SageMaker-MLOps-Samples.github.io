@@ -7,24 +7,6 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language><atom:link href="https://sagemaker-mlops-samples.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>E2E MLOps on AWS: P2 - CV Simulation with Drift &amp; Retraining</title>
-      <link>https://sagemaker-mlops-samples.github.io/blogs/computer-vision/e2e-mlops-on-aws-p2-cv-simulation/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://sagemaker-mlops-samples.github.io/blogs/computer-vision/e2e-mlops-on-aws-p2-cv-simulation/</guid>
-      <description>End-to-End MLOPS on AWS: Part2 - Computer Vision Simulation with Drift &amp;amp; Retraining#Authors: Palash Nimodia, Yogendra YatnalkarLast Edited: 02/05/2023 Previous Blog Link: End-to-End MLOps on AWS: Part1 - IntroductionIn our previous blog, we explored the concept of MLOps and its core elements which are components and pipelines. In this second part of our series, we will demonstrate how we created a comprehensive simulation for computer-vision batch workloads and later present the results of the same.</description>
-    </item>
-    
-    <item>
-      <title>E2E MLOps on AWS: P3 - CV Components and Pipelines Deep Dive</title>
-      <link>https://sagemaker-mlops-samples.github.io/blogs/computer-vision/e2e-mlops-on-aws-p3-cv-components-and-pipelines/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://sagemaker-mlops-samples.github.io/blogs/computer-vision/e2e-mlops-on-aws-p3-cv-components-and-pipelines/</guid>
-      <description>End-to-End MLOPS on AWS: Part3 - Computer Vision Components and Pipelines Deep Dive#Authors: Palash Nimodia, Yogendra YatnalkarLast Edited: 20/06/2023 Previous Blog Link: E2E MLOps on AWS: Part2 - Computer Vision Simulation with Drift &amp;amp; RetrainingIn part 2 of our series, we gave a high-level overview of an MLOps system that handles large-scale image classification, end-to-end simulation and retraining evaluation to address drift. In this part 3, we will dive deeper into the computer vision components and pipelines that make up this system.</description>
-    </item>
-    
-    <item>
       <title>E2E MLOps on AWS: Part1 - Introduction</title>
       <link>https://sagemaker-mlops-samples.github.io/blogs/end-to-end-mlops-on-aws-part1-introduction/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -32,6 +14,51 @@
       <guid>https://sagemaker-mlops-samples.github.io/blogs/end-to-end-mlops-on-aws-part1-introduction/</guid>
       <description>End-to-End MLOps on AWS: Part1 - Introduction#Authors: Palash Nimodia, Yogendra YatnalkarLast Edited: 01/05/2023 The upcoming series of blogs will try to explain how to build a complete MLOps system on AWS, mainly revolving around the AWS SageMaker ecosystem. The Part-1 of this blog introduces the concept of MLOps, its various constituents and the AWS services that are needed to build them.
 Prerequisite: The blog series expects the reader to have a basic understanding of the following concepts:</description>
+    </item>
+    
+    <item>
+      <title>E2E MLOps on AWS: Part2.1 - CV Simulation with Drift &amp; Retraining</title>
+      <link>https://sagemaker-mlops-samples.github.io/blogs/computer-vision/e2e-mlops-on-aws-p2.1-cv-simulation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sagemaker-mlops-samples.github.io/blogs/computer-vision/e2e-mlops-on-aws-p2.1-cv-simulation/</guid>
+      <description>End-to-End MLOPS on AWS: Part2.1 - Computer Vision Simulation with Drift &amp;amp; Retraining#Authors: Palash Nimodia, Yogendra YatnalkarLast Edited: 02/05/2023 Previous Blog Link: End-to-End MLOps on AWS: Part1 - IntroductionIn our previous blog, we explored the concept of MLOps and its core elements which are components and pipelines. In this second part of our series, we will demonstrate how we created a comprehensive simulation for computer-vision batch workloads and later present the results of the same.</description>
+    </item>
+    
+    <item>
+      <title>E2E MLOps on AWS: Part2.2 - CV Components and Pipelines Deep Dive</title>
+      <link>https://sagemaker-mlops-samples.github.io/blogs/computer-vision/e2e-mlops-on-aws-p2.2-cv-components-and-pipelines/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sagemaker-mlops-samples.github.io/blogs/computer-vision/e2e-mlops-on-aws-p2.2-cv-components-and-pipelines/</guid>
+      <description>End-to-End MLOPS on AWS: Part2.2 - Computer Vision Components and Pipelines Deep Dive#Authors: Palash Nimodia, Yogendra YatnalkarLast Edited: 20/06/2023 Previous Blog Link: E2E MLOps on AWS: Part2.1 - Computer Vision Simulation with Drift &amp;amp; RetrainingIn part 2.1 of our series, we gave a high-level overview of an MLOps system that handles large-scale image classification, end-to-end simulation and retraining evaluation to address drift. In this part 3, we will dive deeper into the computer vision components and pipelines that make up this system.</description>
+    </item>
+    
+    <item>
+      <title>E2E MLOps on AWS: Part3.1- TS Forecasting: MLOps Overview and Simulation</title>
+      <link>https://sagemaker-mlops-samples.github.io/blogs/time-series/time-series-forecasting-mlops-overview-and-simulation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sagemaker-mlops-samples.github.io/blogs/time-series/time-series-forecasting-mlops-overview-and-simulation/</guid>
+      <description>End-to-End MLOps on AWS: Part3.1- Time Series Forecasting: MLOps Overview and Simulation#Authors: Palash Nimodia, Abhishek Tawar, Steffi AndradeLast Edited: 01/07/2023 Previous Blog Link: End-to-End MLOps on AWS: Part1 - IntroductionThis blog is a part of a series of blogs based on MLOps workflows we built. In this blog, we will be talking about the time series solution developed using AWS sagemaker pipeline. For more details and a deeper understanding of MLOps, components used and the types of components; go through our previous blog.</description>
+    </item>
+    
+    <item>
+      <title>E2E MLOps on AWS: Part3.2- TS Forecasting: Detailed working of Pipelines</title>
+      <link>https://sagemaker-mlops-samples.github.io/blogs/time-series/time-series-forecasting-detailed-working-of-pipelines/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sagemaker-mlops-samples.github.io/blogs/time-series/time-series-forecasting-detailed-working-of-pipelines/</guid>
+      <description>End-to-End MLOps on AWS: Part3.2- Time Series Forecasting: Detailed working of Pipelines#Authors: Palash Nimodia, Abhishek Tawar, Steffi AndradeLast Edited: 01/07/2023 Previous Blog Link: E2E MLOps on AWS: Part3.1- Time Series Forecasting: MLOps Overview and SimulationThis blog is a part of a series of blogs explaining MLOps workflows we built. In this blog, we will talk about the end-to-end time series forecasting pipelines developed using AWS sagemaker pipeline.</description>
+    </item>
+    
+    <item>
+      <title>E2E MLOps on AWS: Part3.3- TS Forecasting: Components Deep Dive</title>
+      <link>https://sagemaker-mlops-samples.github.io/blogs/time-series/time-series-forecasting-components-deep-dive/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sagemaker-mlops-samples.github.io/blogs/time-series/time-series-forecasting-components-deep-dive/</guid>
+      <description>End-to-End MLOps on AWS: Part3.3- Time Series Forecasting: Components Deep Dive#Authors: Palash Nimodia, Abhishek Tawar, Steffi AndradeLast Edited: 01/07/2023 Previous Blog Link: E2E MLOps on AWS: Part3.2- Time Series Forecasting: Detailed working of Pipelines This blog is the third and last of a series of blogs based on MLOps workflows we built. In this blog, we will talk about the various components used in the timeseries pipeline developed using AWS sagemaker pipeline.</description>
     </item>
     
     <item>

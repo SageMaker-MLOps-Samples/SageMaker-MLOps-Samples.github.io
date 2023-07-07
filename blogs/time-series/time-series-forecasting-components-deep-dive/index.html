@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="End-to-End MLOps on AWS: Part3.3- Time Series Forecasting: Components Deep Dive#Authors: Palash Nimodia, Abhishek Tawar, Steffi AndradeLast Edited: 01/07/2023 Previous Blog Link: E2E MLOps on AWS: Part3.2- Time Series Forecasting: Detailed working of Pipelines This blog is the third and last of a series of blogs based on MLOps workflows we built. In this blog, we will talk about the various components used in the timeseries pipeline developed using AWS sagemaker pipeline.">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="E2E MLOps on AWS: Part3.3- TS Forecasting: Components Deep Dive" />
+<meta property="og:description" content="End-to-End MLOps on AWS: Part3.3- Time Series Forecasting: Components Deep Dive#Authors: Palash Nimodia, Abhishek Tawar, Steffi AndradeLast Edited: 01/07/2023 Previous Blog Link: E2E MLOps on AWS: Part3.2- Time Series Forecasting: Detailed working of Pipelines This blog is the third and last of a series of blogs based on MLOps workflows we built. In this blog, we will talk about the various components used in the timeseries pipeline developed using AWS sagemaker pipeline." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://sagemaker-mlops-samples.github.io/blogs/time-series/time-series-forecasting-components-deep-dive/" /><meta property="article:section" content="blogs" />
+
+
+<title>E2E MLOps on AWS: Part3.3- TS Forecasting: Components Deep Dive | MLOps On AWS</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.f8de3645fe00591b41524aee174e19edd98a22255a2930a0cdc82a94835ba387.css" integrity="sha256-&#43;N42Rf4AWRtBUkruF04Z7dmKIiVaKTCgzcgqlINbo4c=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.e51c5ae7c24dc8999f81744a8c829682cb7ee2962b51787672f95e54ea09cde9.js" integrity="sha256-5Rxa58JNyJmfgXRKjIKWgst&#43;4pYrUXh2cvleVOoJzek=" crossorigin="anonymous"></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KCH0X75V1Q"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-KCH0X75V1Q', { 'anonymize_ip': false });
+}
+</script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>MLOps On AWS</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+  
+  <ul>
+    
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <a href="/blogs/" class="">Blogs</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/blogs/end-to-end-mlops-on-aws-part1-introduction/" class="">E2E MLOps on AWS: Part1 - Introduction</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-03ef094eb464fab36e40fac2dc8cc6fd" class="toggle"  />
+    <label for="section-03ef094eb464fab36e40fac2dc8cc6fd" class="flex justify-between">
+      <a role="button" class="">Computer Vision</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/blogs/computer-vision/e2e-mlops-on-aws-p2.1-cv-simulation/" class="">E2E MLOps on AWS: Part2.1 - CV Simulation with Drift &amp; Retraining</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/blogs/computer-vision/e2e-mlops-on-aws-p2.2-cv-components-and-pipelines/" class="">E2E MLOps on AWS: Part2.2 - CV Components and Pipelines Deep Dive</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-7520c880a260be5a3e516a3696f68e3b" class="toggle" checked />
+    <label for="section-7520c880a260be5a3e516a3696f68e3b" class="flex justify-between">
+      <a role="button" class="">Time Series</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/blogs/time-series/time-series-forecasting-mlops-overview-and-simulation/" class="">E2E MLOps on AWS: Part3.1- TS Forecasting: MLOps Overview and Simulation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/blogs/time-series/time-series-forecasting-detailed-working-of-pipelines/" class="">E2E MLOps on AWS: Part3.2- TS Forecasting: Detailed working of Pipelines</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/blogs/time-series/time-series-forecasting-components-deep-dive/" class="active">E2E MLOps on AWS: Part3.3- TS Forecasting: Components Deep Dive</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>E2E MLOps on AWS: Part3.3- TS Forecasting: Components Deep Dive</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#components-in-detail">Components in Detail:</a>
+      <ul>
+        <li><a href="#1-processing-component"><strong>1] Processing Component:</strong></a></li>
+        <li><a href="#2-algorithm-component"><strong>2] Algorithm Component:</strong></a></li>
+        <li><a href="#3-explainability-component"><strong>3] Explainability Component:</strong></a></li>
+        <li><a href="#4-monitoring-component"><strong>4] Monitoring Component:</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#references"><strong>References:</strong></a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="end-to-end-mlops-on-aws-part33--time-series-forecasting-components-deep-dive">
+  End-to-End MLOps on AWS: Part3.3- Time Series Forecasting: Components Deep Dive
+  <a class="anchor" href="#end-to-end-mlops-on-aws-part33--time-series-forecasting-components-deep-dive">#</a>
+</h1>
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Authors: <a href="https://www.linkedin.com/in/palash-nimodia-94975b4b/" target="_blank" rel="noopener">Palash Nimodia</a>
+, <a href="https://www.linkedin.com/in/thinkabhishek/" target="_blank" rel="noopener">Abhishek Tawar</a>
+, <a href="https://www.linkedin.com/in/steffi-andrade-8b92a3184/" target="_blank" rel="noopener">Steffi Andrade</a>
+</td>
+</tr>
+<tr>
+<td>Last Edited: 01/07/2023</td>
+</tr>
+<tr>
+<td>Previous Blog Link:  <a href="../time-series-forecasting-detailed-working-of-pipelines/">E2E MLOps on AWS: Part3.2- Time Series Forecasting: Detailed working of Pipelines </a>
+</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>This blog is the third and last of a series of blogs based on MLOps workflows we built. In this blog, we will talk about the various components used in the timeseries pipeline developed using AWS sagemaker pipeline. Also, for an overview of the time series pipeline workflow refer to <a href="../time-series-forecasting-mlops-overview-and-simulation/">our first blog in Time-Series Domain</a>
+. To understand the working of the pipeline in depth, the various steps and the AWS services involved, refer to our previous <a href="../time-series-forecasting-detailed-working-of-pipelines/">blog</a>
+.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="image4.png" alt="" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Components of the Sagemaker Pipeline</td>
+</tr>
+</tbody>
+</table>
+<p>From the diagram above we can observe that the end-to-end pipeline solution consists of two major pipelines: Training pipeline and Inference pipeline. Both pipelines consists of four main components they are –</p>
+<h2 id="components-in-detail">
+  Components in Detail:
+  <a class="anchor" href="#components-in-detail">#</a>
+</h2>
+<ol>
+<li><em>Processing component</em></li>
+<li><em>Algorithm component</em></li>
+<li><em>Explainability component</em></li>
+<li><em>Monitoring component</em></li>
+</ol>
+<p>Every component supports two run modes namely the train mode and serve mode. All components are executed in the <strong>train mode for the training pipeline</strong> and in the <strong>serve mode for the inference pipeline</strong>. In each component we use parameter ‘run_mode’ to specify the run mode. You can find the solution code repository <a href="https://github.com/SageMaker-MLOps-Samples/MLOps-TS-Forecasting" target="_blank" rel="noopener">here</a>
+. Let&rsquo;s dive into every component to understand its working.</p>
+<h3 id="1-processing-component">
+  <strong>1] Processing Component:</strong>
+  <a class="anchor" href="#1-processing-component">#</a>
+</h3>
+<p>The processing component handles <strong>data-preprocessing in batch mode</strong>. This component reads the input CSV file based on the inference date parameter, performs cleaning, preprocessing, scaling steps and saves the preprocessed data in s3. This component will also apply specific filters to extract data for ‘Birmingham’ city. A processing job is created to run this component. The key differences in the run modes are:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="processing-component.png" alt="" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Processing Component Lifecycle</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p><strong><em>Train Mode:</em></strong></p>
+<p>In train mode it splits the data in train and validation splits. It saves the artifacts of the scalar.</p>
+</li>
+<li>
+<p><strong><em>Serve Mode:</em></strong></p>
+<p>In serve mode, it separates the target column from the input columns as ‘inference_Y.csv’ and ‘inference_X.csv’ respectively. The artifacts (scalers) output path of this component in train mode is passed as an input and used to scale inference_Y dataset.</p>
+</li>
+</ul>
+<h3 id="2-algorithm-component">
+  <strong>2] Algorithm Component:</strong>
+  <a class="anchor" href="#2-algorithm-component">#</a>
+</h3>
+<p>The algorithm component performs two major tasks, which are <strong>model training and model inference in batch setting</strong>. The key differences in the run modes are:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="algo-component.png" alt="" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Algorithm Component Lifecycle</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p><strong><em>Train Mode:</em></strong></p>
+<p>In train mode this component will perform the task of <strong>training the LSTM based model</strong> on the training dataset and evaluate the model on the validation dataset. The generated model artifacts are saved in S3.  The train and validation data is passed as input to this component. Additionally, total number of epochs, features, early stopping value and look back period are <strong>passed as hyperparameters</strong>. The training is carried out in batch mode by creating a sagemaker training job.</p>
+</li>
+<li>
+<p><strong><em>Serve Mode:</em></strong></p>
+<p>In serve mode, it uses the model trained in the train mode to perform batch inference on the inference data. This component consists of two sub-steps in the inference pipeline. The first step is the ‘<strong>model step</strong>’ where a sagemaker model is created using the model artifact path obtained from the train mode output of this component. This sagemaker model is used in the next step that is the ‘<strong>transform step</strong>’ where a sagemaker batch transform job is created to <strong>perform batch inference</strong> on the inference data. Look back and look ahead period are also passed as environment variables. The transform step is carried out after the model step is completed. Generated forecast is saved in s3.</p>
+</li>
+</ul>
+<h3 id="3-explainability-component">
+  <strong>3] Explainability Component:</strong>
+  <a class="anchor" href="#3-explainability-component">#</a>
+</h3>
+<p>The explainability component is tasked with <strong>providing interpretability to the model</strong>. In order to achieve this task this component computes shap values by comparing the predicted and actual values. It then generates and saves a clarify report. It uses a sagemaker processing job to execute this task. The clarify reports generated are saved in s3. It is defined as a processing step within the training pipeline and it is triggered only after the algorithm component is executed. The key differences in the run modes are:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="explainability-component.png" alt="" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Explainability Component Lifecycle</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p><strong><em>Train Mode:</em></strong></p>
+<p>The input in the train mode is the train data.</p>
+</li>
+<li>
+<p><strong><em>Serve Mode:</em></strong></p>
+<p>In serve mode, the inputs to this component are the test data which is the output of the processing component in serve mode and the train data which is the output of the processing component in train mode.</p>
+</li>
+</ul>
+<h3 id="4-monitoring-component">
+  <strong>4] Monitoring Component:</strong>
+  <a class="anchor" href="#4-monitoring-component">#</a>
+</h3>
+<p>The monitoring component detects performance issues by <strong>detecting drift</strong> in the performance of machine learning <strong>models or data</strong> . It uses a sagemaker processing job to monitor the performance of models. It is defined as a processing step within the training pipeline and it is triggered only after the algorithm component is executed in parallel with the explainability component. The key differences in the run modes are:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="monitoring-component.png" alt="" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Monitoring Component Lifecycle</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p><strong><em>Train Mode:</em></strong></p>
+<p>In train mode, the monitoring component <strong>generates two baselines</strong> to detect drift in data and model. It uses the train data to generate the baseline report for data drift and validation data for model drift. It saves the data and model drift baseline reports in s3 as CSV files.</p>
+</li>
+<li>
+<p><strong><em>Serve Mode:</em></strong></p>
+<p>In the serve mode, this component <strong>detects data and model drift</strong>. It will compare the detected drift with the baseline drift computed by this component in the train mode. Model drift is detected by comparing the forecast value generated with the actual value corresponding to that date. Since actual values will always lag the forecasted value, the date for which drift is detected is the date that is look ahead days before the inference date (<strong>drift_detect_date</strong> = inference date - [look_ahead+1] days). The inputs to this component are the inference data, forecast generated and actual value corresponding to the drift_detect_date and the monitoring baseline artifact path which is the output of the monitoring component in train mode. It generates and saves the drift analysis report in s3.</p>
+</li>
+</ul>
+<p>We have shared the code for all pipelines and components here. If you find our work interesting you can replicate it for your usecase. Feel free to contact us if you have any feedback, suggestions or comments. Happy learning.</p>
+<h2 id="references">
+  <strong>References:</strong>
+  <a class="anchor" href="#references">#</a>
+</h2>
+<ul>
+<li><a href="https://docs.aws.amazon.com/sagemaker/latest/dg/define-pipeline.html" target="_blank" rel="noopener">https://docs.aws.amazon.com/sagemaker/latest/dg/define-pipeline.html</a>
+</li>
+<li><a href="https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-steps.html" target="_blank" rel="noopener">https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-steps.html</a>
+</li>
+<li><a href="https://sagemaker-examples.readthedocs.io/en/latest/sagemaker-pipelines/tabular/abalone_build_train_deploy/sagemaker-pipelines-preprocess-train-evaluate-batch-transform.html" target="_blank" rel="noopener">https://sagemaker-examples.readthedocs.io/en/latest/sagemaker-pipelines/tabular/abalone_build_train_deploy/sagemaker-pipelines-preprocess-train-evaluate-batch-transform.html</a>
+</li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments"><script src="https://utteranc.es/client.js"
+        repo="SageMaker-MLOps-Samples/SageMaker-MLOps-Samples.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script></div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#components-in-detail">Components in Detail:</a>
+      <ul>
+        <li><a href="#1-processing-component"><strong>1] Processing Component:</strong></a></li>
+        <li><a href="#2-algorithm-component"><strong>2] Algorithm Component:</strong></a></li>
+        <li><a href="#3-explainability-component"><strong>3] Explainability Component:</strong></a></li>
+        <li><a href="#4-monitoring-component"><strong>4] Monitoring Component:</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#references"><strong>References:</strong></a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

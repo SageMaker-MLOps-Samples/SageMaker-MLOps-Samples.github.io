@@ -7,21 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language><atom:link href="https://sagemaker-mlops-samples.github.io/blogs/computer-vision/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>E2E MLOps on AWS: P2 - CV Simulation with Drift &amp; Retraining</title>
-      <link>https://sagemaker-mlops-samples.github.io/blogs/computer-vision/e2e-mlops-on-aws-p2-cv-simulation/</link>
+      <title>E2E MLOps on AWS: Part2.1 - CV Simulation with Drift &amp; Retraining</title>
+      <link>https://sagemaker-mlops-samples.github.io/blogs/computer-vision/e2e-mlops-on-aws-p2.1-cv-simulation/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://sagemaker-mlops-samples.github.io/blogs/computer-vision/e2e-mlops-on-aws-p2-cv-simulation/</guid>
-      <description>End-to-End MLOPS on AWS: Part2 - Computer Vision Simulation with Drift &amp;amp; Retraining#Authors: Palash Nimodia, Yogendra YatnalkarLast Edited: 02/05/2023 Previous Blog Link: End-to-End MLOps on AWS: Part1 - IntroductionIn our previous blog, we explored the concept of MLOps and its core elements which are components and pipelines. In this second part of our series, we will demonstrate how we created a comprehensive simulation for computer-vision batch workloads and later present the results of the same.</description>
+      <guid>https://sagemaker-mlops-samples.github.io/blogs/computer-vision/e2e-mlops-on-aws-p2.1-cv-simulation/</guid>
+      <description>End-to-End MLOPS on AWS: Part2.1 - Computer Vision Simulation with Drift &amp;amp; Retraining#Authors: Palash Nimodia, Yogendra YatnalkarLast Edited: 02/05/2023 Previous Blog Link: End-to-End MLOps on AWS: Part1 - IntroductionIn our previous blog, we explored the concept of MLOps and its core elements which are components and pipelines. In this second part of our series, we will demonstrate how we created a comprehensive simulation for computer-vision batch workloads and later present the results of the same.</description>
     </item>
     
     <item>
-      <title>E2E MLOps on AWS: P3 - CV Components and Pipelines Deep Dive</title>
-      <link>https://sagemaker-mlops-samples.github.io/blogs/computer-vision/e2e-mlops-on-aws-p3-cv-components-and-pipelines/</link>
+      <title>E2E MLOps on AWS: Part2.2 - CV Components and Pipelines Deep Dive</title>
+      <link>https://sagemaker-mlops-samples.github.io/blogs/computer-vision/e2e-mlops-on-aws-p2.2-cv-components-and-pipelines/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://sagemaker-mlops-samples.github.io/blogs/computer-vision/e2e-mlops-on-aws-p3-cv-components-and-pipelines/</guid>
-      <description>End-to-End MLOPS on AWS: Part3 - Computer Vision Components and Pipelines Deep Dive#Authors: Palash Nimodia, Yogendra YatnalkarLast Edited: 20/06/2023 Previous Blog Link: E2E MLOps on AWS: Part2 - Computer Vision Simulation with Drift &amp;amp; RetrainingIn part 2 of our series, we gave a high-level overview of an MLOps system that handles large-scale image classification, end-to-end simulation and retraining evaluation to address drift. In this part 3, we will dive deeper into the computer vision components and pipelines that make up this system.</description>
+      <guid>https://sagemaker-mlops-samples.github.io/blogs/computer-vision/e2e-mlops-on-aws-p2.2-cv-components-and-pipelines/</guid>
+      <description>End-to-End MLOPS on AWS: Part2.2 - Computer Vision Components and Pipelines Deep Dive#Authors: Palash Nimodia, Yogendra YatnalkarLast Edited: 20/06/2023 Previous Blog Link: E2E MLOps on AWS: Part2.1 - Computer Vision Simulation with Drift &amp;amp; RetrainingIn part 2.1 of our series, we gave a high-level overview of an MLOps system that handles large-scale image classification, end-to-end simulation and retraining evaluation to address drift. In this part 3, we will dive deeper into the computer vision components and pipelines that make up this system.</description>
     </item>
     
   </channel>

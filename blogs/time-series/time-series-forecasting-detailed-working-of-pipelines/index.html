@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="End-to-End MLOps on AWS: Part3.2- Time Series Forecasting: Detailed working of Pipelines#Authors: Palash Nimodia, Abhishek Tawar, Steffi AndradeLast Edited: 01/07/2023 Previous Blog Link: E2E MLOps on AWS: Part3.1- Time Series Forecasting: MLOps Overview and SimulationThis blog is a part of a series of blogs explaining MLOps workflows we built. In this blog, we will talk about the end-to-end time series forecasting pipelines developed using AWS sagemaker pipeline.">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="E2E MLOps on AWS: Part3.2- TS Forecasting: Detailed working of Pipelines" />
+<meta property="og:description" content="End-to-End MLOps on AWS: Part3.2- Time Series Forecasting: Detailed working of Pipelines#Authors: Palash Nimodia, Abhishek Tawar, Steffi AndradeLast Edited: 01/07/2023 Previous Blog Link: E2E MLOps on AWS: Part3.1- Time Series Forecasting: MLOps Overview and SimulationThis blog is a part of a series of blogs explaining MLOps workflows we built. In this blog, we will talk about the end-to-end time series forecasting pipelines developed using AWS sagemaker pipeline." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://sagemaker-mlops-samples.github.io/blogs/time-series/time-series-forecasting-detailed-working-of-pipelines/" /><meta property="article:section" content="blogs" />
+
+
+<title>E2E MLOps on AWS: Part3.2- TS Forecasting: Detailed working of Pipelines | MLOps On AWS</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+<link rel="stylesheet" href="/book.min.f8de3645fe00591b41524aee174e19edd98a22255a2930a0cdc82a94835ba387.css" integrity="sha256-&#43;N42Rf4AWRtBUkruF04Z7dmKIiVaKTCgzcgqlINbo4c=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.e51c5ae7c24dc8999f81744a8c829682cb7ee2962b51787672f95e54ea09cde9.js" integrity="sha256-5Rxa58JNyJmfgXRKjIKWgst&#43;4pYrUXh2cvleVOoJzek=" crossorigin="anonymous"></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KCH0X75V1Q"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-KCH0X75V1Q', { 'anonymize_ip': false });
+}
+</script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>MLOps On AWS</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+  
+  <ul>
+    
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <a href="/blogs/" class="">Blogs</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/blogs/end-to-end-mlops-on-aws-part1-introduction/" class="">E2E MLOps on AWS: Part1 - Introduction</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-03ef094eb464fab36e40fac2dc8cc6fd" class="toggle"  />
+    <label for="section-03ef094eb464fab36e40fac2dc8cc6fd" class="flex justify-between">
+      <a role="button" class="">Computer Vision</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/blogs/computer-vision/e2e-mlops-on-aws-p2.1-cv-simulation/" class="">E2E MLOps on AWS: Part2.1 - CV Simulation with Drift &amp; Retraining</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/blogs/computer-vision/e2e-mlops-on-aws-p2.2-cv-components-and-pipelines/" class="">E2E MLOps on AWS: Part2.2 - CV Components and Pipelines Deep Dive</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-7520c880a260be5a3e516a3696f68e3b" class="toggle" checked />
+    <label for="section-7520c880a260be5a3e516a3696f68e3b" class="flex justify-between">
+      <a role="button" class="">Time Series</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/blogs/time-series/time-series-forecasting-mlops-overview-and-simulation/" class="">E2E MLOps on AWS: Part3.1- TS Forecasting: MLOps Overview and Simulation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/blogs/time-series/time-series-forecasting-detailed-working-of-pipelines/" class="active">E2E MLOps on AWS: Part3.2- TS Forecasting: Detailed working of Pipelines</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/blogs/time-series/time-series-forecasting-components-deep-dive/" class="">E2E MLOps on AWS: Part3.3- TS Forecasting: Components Deep Dive</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>E2E MLOps on AWS: Part3.2- TS Forecasting: Detailed working of Pipelines</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#communication-between-steps-in-the-pipeline"><strong>Communication between Steps in the Pipeline:</strong></a></li>
+    <li><a href="#end-to-end-pipeline-flow"><strong>End-to-End Pipeline Flow:</strong></a></li>
+    <li><a href="#references"><strong>References:</strong></a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown"><h1 id="end-to-end-mlops-on-aws-part32--time-series-forecasting-detailed-working-of-pipelines">
+  End-to-End MLOps on AWS: Part3.2- Time Series Forecasting: Detailed working of Pipelines
+  <a class="anchor" href="#end-to-end-mlops-on-aws-part32--time-series-forecasting-detailed-working-of-pipelines">#</a>
+</h1>
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Authors: <a href="https://www.linkedin.com/in/palash-nimodia-94975b4b/" target="_blank" rel="noopener">Palash Nimodia</a>
+, <a href="https://www.linkedin.com/in/thinkabhishek/" target="_blank" rel="noopener">Abhishek Tawar</a>
+, <a href="https://www.linkedin.com/in/steffi-andrade-8b92a3184/" target="_blank" rel="noopener">Steffi Andrade</a>
+</td>
+</tr>
+<tr>
+<td>Last Edited: 01/07/2023</td>
+</tr>
+<tr>
+<td>Previous Blog Link:  <a href="../time-series-forecasting-mlops-overview-and-simulation">E2E MLOps on AWS: Part3.1- Time Series Forecasting: MLOps Overview and Simulation</a>
+</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>This blog is a part of a series of blogs explaining MLOps workflows we built. In this blog, we will talk about the end-to-end time series forecasting pipelines developed using AWS sagemaker pipeline. We will explain the working of the pipeline in detail including he steps involved and the various AWS services used. For more details and an overview of MLOps, the components used and the types of components; go through <a href="../../end-to-end-mlops-on-aws-part1-introduction/">this blog</a>
+). Also, for an overview of the time series pipeline refer to <a href="../time-series-forecasting-mlops-overview-and-simulation">previous blog</a>
+. You can find the solution code repository <a href="https://github.com/SageMaker-MLOps-Samples/MLOps-TS-Forecasting" target="_blank" rel="noopener">here</a>
+.</p>
+<p>The <strong>pipelines consists of components</strong>, each component has a specific task in the pipeline based on their function. Each component needs to be executed using an appropriate <strong>step in the sagemaker pipeline</strong>. We used the following steps in our pipelines: Lambda step, Processing step, Training step, Model step, Transform step, Condition step depending on the function of the corresponding component.</p>
+<p>The <strong><em>Parameter store</em></strong> is a JSON file saved in S3. Alternatively, AWS Systems Manager Parameter Store could also be used.</p>
+<h2 id="communication-between-steps-in-the-pipeline">
+  <strong>Communication between Steps in the Pipeline:</strong>
+  <a class="anchor" href="#communication-between-steps-in-the-pipeline">#</a>
+</h2>
+<p>SageMaker Pipeline steps define the actions that the pipeline takes and the relationship between steps using properties. Each step requires certain parameters to be pass.   Three types of parameters are used in the pipelines: These parameters can be categorized into three types:</p>
+<ul>
+<li>
+<p><strong>Sagemaker Pipeline Parameters:</strong></p>
+<p>Variables are introduced into your pipeline definition using <strong>pipeline</strong> <strong>parameters</strong> and can be referenced throughout the pipeline. Parameters have a default value, which can be updated by specifying parameter values when starting a pipeline execution.</p>
+</li>
+<li>
+<p><strong>Parameter fetched from the parameter store:</strong></p>
+<p>To enable the model lifecycle management workflow it is required to version control important parameters. Some of such parameters are model artifacts location, drift baseline reports location, training data location etc. We maintain a parameter store to version all these parameters.</p>
+</li>
+<li>
+<p><strong>Parameter fetched from the previous step:</strong></p>
+<p>The <strong>step properties</strong> attribute is used to add data dependencies between steps in the pipeline. These properties are referenced as placeholder values and are resolved at runtime. The properties of one step are passed as input to another step in the pipeline.</p>
+</li>
+</ul>
+<h2 id="end-to-end-pipeline-flow">
+  <strong>End-to-End Pipeline Flow:</strong>
+  <a class="anchor" href="#end-to-end-pipeline-flow">#</a>
+</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="image6.png" alt="" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">AWS End-to-End Pipeline Architecture Diagram:<!-- raw HTML omitted --> Entries in the bracket indicate component names</td>
+</tr>
+</tbody>
+</table>
+<p>As discussed in the previous blogs, the end-to-end pipeline consists of two distinct sagemaker pipelines — <strong><em>Training pipeline</em></strong> and <strong><em>Inference pipeline</em></strong>. Both pipelines contain four distinct components i.e. <strong>processing, training, inference, explainability, and monitoring.</strong> Additionally, there are a few additional helper steps. Each component supports two run modes — Train mode and Serve mode. For the inference and training pipeline, every component will be running in the <strong>“Serve” mode</strong> and <strong>“Train” mode</strong> respectively. Let’s discuss the individual pipeline flows in detail —</p>
+<ul>
+<li><strong><em>Training Pipeline Flow:</em></strong></li>
+</ul>
+<ol>
+<li>Training pipeline can be <strong>triggered by the inference pipeline</strong> when there is drift detected and the cooling period is over. The <strong>cooling period</strong> starts on the day the latest model was trained and continues for days equal to the look ahead period<!-- raw HTML omitted -->.<!-- raw HTML omitted --></li>
+<li>The first step is the <strong>processing component</strong> that reads the training data, performs data cleaning/preprocessing and finally saves the training and validation data in s3.</li>
+<li> The <strong>algorithm component</strong> is the next step and it uses the traning data to train an LSTM model and validation data to calculate the validation accuracy. The generated model artifacts are saved in S3.</li>
+<li>Next the <strong>explainability component</strong> computes shap values. It also generates and saves a clarify report. This step is triggered only after the algorithm component step is completed.</li>
+<li>The <strong>monitoring component</strong> uses a sagemaker processing job to generate drift baselines/artifacts. It generates two kinds of baselines to detect drift in data and model and saves the drift baseline reports in s3. This step is triggered only after the algorithm component step is completed and runs in parallel with the explainability step.</li>
+<li>The <em>last step</em> of the training pipeline ‘<strong>update parameters’</strong> is the lambda step that updates the parameter store with the latest model and other artifact paths generated by the training pipeline. These parameters act as pipeline input parameters for the inference pipeline.</li>
+</ol>
+<ul>
+<li><strong><em>Inference Pipeline Flow:</em></strong></li>
+</ul>
+<ol>
+<li>The <strong><em>first step</em></strong> in the pipeline is ‘<strong>get parameter</strong>’, it fetches the parameters from the parameter store and assigns them to the step properties which can be used throughout the pipeline. This step is defined as a lambda step. This step also <strong>checks if there is a forecast</strong> (generated by previous inference pipeline run) <strong>available for the actual date</strong> (Actual date is the latest date for which actuals are available = inference date - [Look ahead + 1] days). The first lambda step(of inference pipeline) sets the condition variable as “true”, if the forecast data is available else “false”.</li>
+<li>Next, the <em><strong>processing component</strong></em> reads the inference data, performs cleaning/preprocessing steps and finally saves the preprocessed data in s3.</li>
+<li>The <strong>algorithm component</strong> consists of two sub-steps. The first sub-step is the ‘<strong><em>model step</em></strong>’ where a sagemaker model is created using the model artifact path obtained from the parameter store. This sagemaker model is then used in the next step that is the ‘<strong><em>transform step</em></strong>’ to perform batch inference.</li>
+<li>The <strong><em>explainability component</em></strong> uses sagemaker processing jobs to compute shap values for the generated forecast. It also generates and saves a clarify report.</li>
+<li>The next step is the <strong><em>condition step</em></strong> which is executed in parallel with the explainability step as they both have dependency on the transform step. This condition step will reference the condition variable set by first step ‘<strong>get parameter</strong>’ and check if it is equal to “true”. If the condition is satisfied, it will execute the monitoring component and the final drift check lambda step else end the pipeline execution.</li>
+<li> The <strong><em>monitoring component</em></strong> detects drift in batch mode. It <strong>generates and saves the data and model drift report</strong> in s3. This step is also defined as a processing step and it is triggered if the condition step was satisfied.</li>
+<li>The <em>final step</em> is <strong>‘Check Drift’</strong> defined as a lambda step. It is used to first check if the cooling period is over and then check the output of the monitoring component to identify if drift was detected in data or model. If the cooling period is over and drift is detected, this step will trigger the training pipeline and complete the execution.</li>
+</ol>
+<p>We now have an understanding of the working of the end-to-end sagemaker pipeline, the various steps involved and the AWS services used. In the next and also the final blog of the series based on forecasting, we will deep dive into the functionality and working of the individual pipeline components in detail. You can find the next blog <a href="../time-series-forecasting-components-deep-dive">here</a>
+.</p>
+<h2 id="references">
+  <strong>References:</strong>
+  <a class="anchor" href="#references">#</a>
+</h2>
+<ul>
+<li><a href="https://docs.aws.amazon.com/sagemaker/latest/dg/define-pipeline.html" target="_blank" rel="noopener">https://docs.aws.amazon.com/sagemaker/latest/dg/define-pipeline.html</a>
+</li>
+<li><a href="https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-steps.html" target="_blank" rel="noopener">https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-steps.html</a>
+</li>
+<li><a href="https://sagemaker-examples.readthedocs.io/en/latest/sagemaker-pipelines/tabular/abalone_build_train_deploy/sagemaker-pipelines-preprocess-train-evaluate-batch-transform.html" target="_blank" rel="noopener">https://sagemaker-examples.readthedocs.io/en/latest/sagemaker-pipelines/tabular/abalone_build_train_deploy/sagemaker-pipelines-preprocess-train-evaluate-batch-transform.html</a>
+</li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments"><script src="https://utteranc.es/client.js"
+        repo="SageMaker-MLOps-Samples/SageMaker-MLOps-Samples.github.io"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script></div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#communication-between-steps-in-the-pipeline"><strong>Communication between Steps in the Pipeline:</strong></a></li>
+    <li><a href="#end-to-end-pipeline-flow"><strong>End-to-End Pipeline Flow:</strong></a></li>
+    <li><a href="#references"><strong>References:</strong></a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -2,13 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://sagemaker-mlops-samples.github.io/blogs/computer-vision/e2e-mlops-on-aws-p2-cv-simulation/</loc>
-  </url><url>
-    <loc>https://sagemaker-mlops-samples.github.io/blogs/computer-vision/e2e-mlops-on-aws-p3-cv-components-and-pipelines/</loc>
-  </url><url>
     <loc>https://sagemaker-mlops-samples.github.io/blogs/end-to-end-mlops-on-aws-part1-introduction/</loc>
   </url><url>
+    <loc>https://sagemaker-mlops-samples.github.io/blogs/computer-vision/e2e-mlops-on-aws-p2.1-cv-simulation/</loc>
+  </url><url>
+    <loc>https://sagemaker-mlops-samples.github.io/blogs/computer-vision/e2e-mlops-on-aws-p2.2-cv-components-and-pipelines/</loc>
+  </url><url>
+    <loc>https://sagemaker-mlops-samples.github.io/blogs/time-series/time-series-forecasting-mlops-overview-and-simulation/</loc>
+  </url><url>
+    <loc>https://sagemaker-mlops-samples.github.io/blogs/time-series/time-series-forecasting-detailed-working-of-pipelines/</loc>
+  </url><url>
+    <loc>https://sagemaker-mlops-samples.github.io/blogs/time-series/time-series-forecasting-components-deep-dive/</loc>
+  </url><url>
     <loc>https://sagemaker-mlops-samples.github.io/blogs/computer-vision/</loc>
+  </url><url>
+    <loc>https://sagemaker-mlops-samples.github.io/blogs/time-series/</loc>
   </url><url>
     <loc>https://sagemaker-mlops-samples.github.io/menu/</loc>
   </url><url>

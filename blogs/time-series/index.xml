@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MLOps On AWS</title>
+    <link>https://sagemaker-mlops-samples.github.io/blogs/time-series/</link>
+    <description>Recent content on MLOps On AWS</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://sagemaker-mlops-samples.github.io/blogs/time-series/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>E2E MLOps on AWS: Part3.1- TS Forecasting: MLOps Overview and Simulation</title>
+      <link>https://sagemaker-mlops-samples.github.io/blogs/time-series/time-series-forecasting-mlops-overview-and-simulation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sagemaker-mlops-samples.github.io/blogs/time-series/time-series-forecasting-mlops-overview-and-simulation/</guid>
+      <description>End-to-End MLOps on AWS: Part3.1- Time Series Forecasting: MLOps Overview and Simulation#Authors: Palash Nimodia, Abhishek Tawar, Steffi AndradeLast Edited: 01/07/2023 Previous Blog Link: End-to-End MLOps on AWS: Part1 - IntroductionThis blog is a part of a series of blogs based on MLOps workflows we built. In this blog, we will be talking about the time series solution developed using AWS sagemaker pipeline. For more details and a deeper understanding of MLOps, components used and the types of components; go through our previous blog.</description>
+    </item>
+    
+    <item>
+      <title>E2E MLOps on AWS: Part3.2- TS Forecasting: Detailed working of Pipelines</title>
+      <link>https://sagemaker-mlops-samples.github.io/blogs/time-series/time-series-forecasting-detailed-working-of-pipelines/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sagemaker-mlops-samples.github.io/blogs/time-series/time-series-forecasting-detailed-working-of-pipelines/</guid>
+      <description>End-to-End MLOps on AWS: Part3.2- Time Series Forecasting: Detailed working of Pipelines#Authors: Palash Nimodia, Abhishek Tawar, Steffi AndradeLast Edited: 01/07/2023 Previous Blog Link: E2E MLOps on AWS: Part3.1- Time Series Forecasting: MLOps Overview and SimulationThis blog is a part of a series of blogs explaining MLOps workflows we built. In this blog, we will talk about the end-to-end time series forecasting pipelines developed using AWS sagemaker pipeline.</description>
+    </item>
+    
+    <item>
+      <title>E2E MLOps on AWS: Part3.3- TS Forecasting: Components Deep Dive</title>
+      <link>https://sagemaker-mlops-samples.github.io/blogs/time-series/time-series-forecasting-components-deep-dive/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sagemaker-mlops-samples.github.io/blogs/time-series/time-series-forecasting-components-deep-dive/</guid>
+      <description>End-to-End MLOps on AWS: Part3.3- Time Series Forecasting: Components Deep Dive#Authors: Palash Nimodia, Abhishek Tawar, Steffi AndradeLast Edited: 01/07/2023 Previous Blog Link: E2E MLOps on AWS: Part3.2- Time Series Forecasting: Detailed working of Pipelines This blog is the third and last of a series of blogs based on MLOps workflows we built. In this blog, we will talk about the various components used in the timeseries pipeline developed using AWS sagemaker pipeline.</description>
+    </item>
+    
+  </channel>
+</rss>
