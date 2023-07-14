@@ -16,7 +16,7 @@
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.f8de3645fe00591b41524aee174e19edd98a22255a2930a0cdc82a94835ba387.css" integrity="sha256-&#43;N42Rf4AWRtBUkruF04Z7dmKIiVaKTCgzcgqlINbo4c=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.42a5a2e0b12c33ac6b64a123673b60d577b577c486c432b011aafc5253281829.js" integrity="sha256-QqWi4LEsM6xrZKEjZztg1Xe1d8SGxDKwEar8UlMoGCk=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.c5b37a979388ca364fa4b1b663a1750e6cfff8a0525d708d37883f679ac76170.js" integrity="sha256-xbN6l5OIyjZPpLG2Y6F1Dmz/&#43;KBSXXCNN4g/Z5rHYXA=" crossorigin="anonymous"></script>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-KCH0X75V1Q"></script>
 <script>
@@ -310,7 +310,6 @@ https://github.com/alex-shpak/hugo-book
 <hr>
 <p>This blog is a part of a series of blogs explaining MLOps workflows we built. In this blog, we will talk about the end-to-end time series forecasting pipelines developed using AWS sagemaker pipeline. We will explain the working of the pipeline in detail including the steps involved and the various AWS services used. For more details and an overview of MLOps, the components used and the types of components; go through <a href="../../end-to-end-mlops-on-aws-part1-introduction/">this blog</a>
 ). Also, for an overview of the time series pipeline refer to <a href="../time-series-forecasting-mlops-overview-and-simulation">previous blog</a>
-. You can find the solution code repository <a href="https://github.com/SageMaker-MLOps-Samples/MLOps-TS-Forecasting" target="_blank" rel="noopener">here</a>
 .</p>
 <p>The <strong>pipelines consists of components</strong>, each component has a specific task in the pipeline based on their function. Each component needs to be executed using an appropriate <strong>step in the sagemaker pipeline</strong>. Our pipelines have different steps for different components. These are the steps we used for each component: Lambda, Processing, Training, Model, Transform and Condition.</p>
 <p>The <strong><em>Parameter store</em></strong> is a JSON file saved in S3. Alternatively, AWS Systems Manager Parameter Store could also be used.</p>
@@ -375,6 +374,7 @@ https://github.com/alex-shpak/hugo-book
 </ol>
 <p>We now have an understanding of the working of the end-to-end sagemaker pipeline, the various steps involved and the AWS services used. In the next and also the final blog of the series based on forecasting, we will deep dive into the functionality and working of the individual pipeline components in detail. You can find the next blog <a href="../time-series-forecasting-components-deep-dive">here</a>
 .</p>
+<p><em>Note: We will post the source code repository link of our project on top of this blog soon. Stay tuned!.</em></p>
 <h2 id="references">
   <strong>References:</strong>
   <a class="anchor" href="#references">#</a>
