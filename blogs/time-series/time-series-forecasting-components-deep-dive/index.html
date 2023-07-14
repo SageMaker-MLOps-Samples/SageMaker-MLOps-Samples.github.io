@@ -16,7 +16,7 @@
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.f8de3645fe00591b41524aee174e19edd98a22255a2930a0cdc82a94835ba387.css" integrity="sha256-&#43;N42Rf4AWRtBUkruF04Z7dmKIiVaKTCgzcgqlINbo4c=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.e51c5ae7c24dc8999f81744a8c829682cb7ee2962b51787672f95e54ea09cde9.js" integrity="sha256-5Rxa58JNyJmfgXRKjIKWgst&#43;4pYrUXh2cvleVOoJzek=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.42a5a2e0b12c33ac6b64a123673b60d577b577c486c432b011aafc5253281829.js" integrity="sha256-QqWi4LEsM6xrZKEjZztg1Xe1d8SGxDKwEar8UlMoGCk=" crossorigin="anonymous"></script>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-KCH0X75V1Q"></script>
 <script>
@@ -366,7 +366,7 @@ https://github.com/alex-shpak/hugo-book
 </li>
 <li>
 <p><strong><em>Serve Mode:</em></strong></p>
-<p>In serve mode, it separates the target column from the input columns as ‘inference_Y.csv’ and ‘inference_X.csv’ respectively. The artifacts (scalers) output path of this component in train mode is passed as an input and used to scale inference_Y dataset.</p>
+<p>In serve mode, it separates the target column from the input columns as ‘inference_Y.csv’ and ‘inference_X.csv’ respectively. The artifacts (scalers) output path of this component in train mode is passed as an input and used to scale inference_X dataset.</p>
 </li>
 </ul>
 <h3 id="2-algorithm-component">
@@ -450,7 +450,8 @@ https://github.com/alex-shpak/hugo-book
 <p>In the serve mode, this component <strong>detects data and model drift</strong>. It will compare the detected drift with the baseline drift computed by this component in the train mode. Model drift is detected by comparing the forecast value generated with the actual value corresponding to that date. Since actual values will always lag the forecasted value, the date for which drift is detected is the date that is look ahead days before the inference date (<strong>drift_detect_date</strong> = inference date - [look_ahead+1] days). The inputs to this component are the inference data, forecast generated and actual value corresponding to the drift_detect_date and the monitoring baseline artifact path which is the output of the monitoring component in train mode. It generates and saves the drift analysis report in s3.</p>
 </li>
 </ul>
-<p>We have shared the code for all pipelines and components here. If you find our work interesting you can replicate it for your usecase. Feel free to contact us if you have any feedback, suggestions or comments. Happy learning.</p>
+<p>We will post the source code repository link of our project on top of this blog soon. Stay tuned!.
+If you find our work interesting you can replicate it for your usecase. Feel free to contact us if you have any feedback, suggestions or comments. Happy learning.</p>
 <h2 id="references">
   <strong>References:</strong>
   <a class="anchor" href="#references">#</a>

@@ -16,7 +16,7 @@
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.f8de3645fe00591b41524aee174e19edd98a22255a2930a0cdc82a94835ba387.css" integrity="sha256-&#43;N42Rf4AWRtBUkruF04Z7dmKIiVaKTCgzcgqlINbo4c=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.e51c5ae7c24dc8999f81744a8c829682cb7ee2962b51787672f95e54ea09cde9.js" integrity="sha256-5Rxa58JNyJmfgXRKjIKWgst&#43;4pYrUXh2cvleVOoJzek=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.42a5a2e0b12c33ac6b64a123673b60d577b577c486c432b011aafc5253281829.js" integrity="sha256-QqWi4LEsM6xrZKEjZztg1Xe1d8SGxDKwEar8UlMoGCk=" crossorigin="anonymous"></script>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-KCH0X75V1Q"></script>
 <script>
@@ -308,17 +308,17 @@ https://github.com/alex-shpak/hugo-book
 </tbody>
 </table>
 <hr>
-<p>This blog is a part of a series of blogs explaining MLOps workflows we built. In this blog, we will talk about the end-to-end time series forecasting pipelines developed using AWS sagemaker pipeline. We will explain the working of the pipeline in detail including he steps involved and the various AWS services used. For more details and an overview of MLOps, the components used and the types of components; go through <a href="../../end-to-end-mlops-on-aws-part1-introduction/">this blog</a>
+<p>This blog is a part of a series of blogs explaining MLOps workflows we built. In this blog, we will talk about the end-to-end time series forecasting pipelines developed using AWS sagemaker pipeline. We will explain the working of the pipeline in detail including the steps involved and the various AWS services used. For more details and an overview of MLOps, the components used and the types of components; go through <a href="../../end-to-end-mlops-on-aws-part1-introduction/">this blog</a>
 ). Also, for an overview of the time series pipeline refer to <a href="../time-series-forecasting-mlops-overview-and-simulation">previous blog</a>
 . You can find the solution code repository <a href="https://github.com/SageMaker-MLOps-Samples/MLOps-TS-Forecasting" target="_blank" rel="noopener">here</a>
 .</p>
-<p>The <strong>pipelines consists of components</strong>, each component has a specific task in the pipeline based on their function. Each component needs to be executed using an appropriate <strong>step in the sagemaker pipeline</strong>. We used the following steps in our pipelines: Lambda step, Processing step, Training step, Model step, Transform step, Condition step depending on the function of the corresponding component.</p>
+<p>The <strong>pipelines consists of components</strong>, each component has a specific task in the pipeline based on their function. Each component needs to be executed using an appropriate <strong>step in the sagemaker pipeline</strong>. Our pipelines have different steps for different components. These are the steps we used for each component: Lambda, Processing, Training, Model, Transform and Condition.</p>
 <p>The <strong><em>Parameter store</em></strong> is a JSON file saved in S3. Alternatively, AWS Systems Manager Parameter Store could also be used.</p>
 <h2 id="communication-between-steps-in-the-pipeline">
   <strong>Communication between Steps in the Pipeline:</strong>
   <a class="anchor" href="#communication-between-steps-in-the-pipeline">#</a>
 </h2>
-<p>SageMaker Pipeline steps define the actions that the pipeline takes and the relationship between steps using properties. Each step requires certain parameters to be pass.   Three types of parameters are used in the pipelines: These parameters can be categorized into three types:</p>
+<p>SageMaker Pipeline steps define the actions that the pipeline takes and the relationship between steps using properties. Each step requires certain parameters to be passed. Three types of parameters are used in the pipelines: These parameters can be categorized into three types:</p>
 <ul>
 <li>
 <p><strong>Sagemaker Pipeline Parameters:</strong></p>
@@ -326,7 +326,7 @@ https://github.com/alex-shpak/hugo-book
 </li>
 <li>
 <p><strong>Parameter fetched from the parameter store:</strong></p>
-<p>To enable the model lifecycle management workflow it is required to version control important parameters. Some of such parameters are model artifacts location, drift baseline reports location, training data location etc. We maintain a parameter store to version all these parameters.</p>
+<p>To enable the model lifecycle management workflow it is required to version control important parameters. Some of such parameters are model artifacts location, drift baseline reports location, training data location, etc. We maintain a parameter store to version all these parameters.</p>
 </li>
 <li>
 <p><strong>Parameter fetched from the previous step:</strong></p>
@@ -357,18 +357,18 @@ https://github.com/alex-shpak/hugo-book
 <li>Training pipeline can be <strong>triggered by the inference pipeline</strong> when there is drift detected and the cooling period is over. The <strong>cooling period</strong> starts on the day the latest model was trained and continues for days equal to the look ahead period<!-- raw HTML omitted -->.<!-- raw HTML omitted --></li>
 <li>The first step is the <strong>processing component</strong> that reads the training data, performs data cleaning/preprocessing and finally saves the training and validation data in s3.</li>
 <li> The <strong>algorithm component</strong> is the next step and it uses the traning data to train an LSTM model and validation data to calculate the validation accuracy. The generated model artifacts are saved in S3.</li>
-<li>Next the <strong>explainability component</strong> computes shap values. It also generates and saves a clarify report. This step is triggered only after the algorithm component step is completed.</li>
-<li>The <strong>monitoring component</strong> uses a sagemaker processing job to generate drift baselines/artifacts. It generates two kinds of baselines to detect drift in data and model and saves the drift baseline reports in s3. This step is triggered only after the algorithm component step is completed and runs in parallel with the explainability step.</li>
+<li>Next the <strong>explainability component</strong> computes shap values. It generates and saves a clarify report. This step is triggered only after the algorithm component step is completed.</li>
+<li>The <strong>monitoring component</strong> uses a sagemaker processing job to generate baseline drift-artifacts. It generates two kinds of baselines to detect drift in data and model and saves the drift baseline reports in s3. This step is triggered only after the algorithm component step is completed and runs in parallel with the explainability step.</li>
 <li>The <em>last step</em> of the training pipeline ‘<strong>update parameters’</strong> is the lambda step that updates the parameter store with the latest model and other artifact paths generated by the training pipeline. These parameters act as pipeline input parameters for the inference pipeline.</li>
 </ol>
 <ul>
 <li><strong><em>Inference Pipeline Flow:</em></strong></li>
 </ul>
 <ol>
-<li>The <strong><em>first step</em></strong> in the pipeline is ‘<strong>get parameter</strong>’, it fetches the parameters from the parameter store and assigns them to the step properties which can be used throughout the pipeline. This step is defined as a lambda step. This step also <strong>checks if there is a forecast</strong> (generated by previous inference pipeline run) <strong>available for the actual date</strong> (Actual date is the latest date for which actuals are available = inference date - [Look ahead + 1] days). The first lambda step(of inference pipeline) sets the condition variable as “true”, if the forecast data is available else “false”.</li>
+<li>The <strong><em>first step</em></strong> in the pipeline is ‘<strong>get parameter</strong>’, it fetches the parameters from the parameter store and assigns them to the step properties which can be used throughout the pipeline. This step is defined as a lambda step. This step also <strong>checks if there is a forecast</strong> (generated by previous inference pipeline run) <strong>available for the actual date</strong> (Actual date is the latest date for which actuals are available = inference date - [Look ahead + 1] days). The first lambda step sets the condition variable as “true”, if the forecast data is available else “false”.</li>
 <li>Next, the <em><strong>processing component</strong></em> reads the inference data, performs cleaning/preprocessing steps and finally saves the preprocessed data in s3.</li>
 <li>The <strong>algorithm component</strong> consists of two sub-steps. The first sub-step is the ‘<strong><em>model step</em></strong>’ where a sagemaker model is created using the model artifact path obtained from the parameter store. This sagemaker model is then used in the next step that is the ‘<strong><em>transform step</em></strong>’ to perform batch inference.</li>
-<li>The <strong><em>explainability component</em></strong> uses sagemaker processing jobs to compute shap values for the generated forecast. It also generates and saves a clarify report.</li>
+<li>The <strong><em>explainability component</em></strong> uses sagemaker processing jobs to compute shap values for the generated forecast. It generates and saves a clarify report.</li>
 <li>The next step is the <strong><em>condition step</em></strong> which is executed in parallel with the explainability step as they both have dependency on the transform step. This condition step will reference the condition variable set by first step ‘<strong>get parameter</strong>’ and check if it is equal to “true”. If the condition is satisfied, it will execute the monitoring component and the final drift check lambda step else end the pipeline execution.</li>
 <li> The <strong><em>monitoring component</em></strong> detects drift in batch mode. It <strong>generates and saves the data and model drift report</strong> in s3. This step is also defined as a processing step and it is triggered if the condition step was satisfied.</li>
 <li>The <em>final step</em> is <strong>‘Check Drift’</strong> defined as a lambda step. It is used to first check if the cooling period is over and then check the output of the monitoring component to identify if drift was detected in data or model. If the cooling period is over and drift is detected, this step will trigger the training pipeline and complete the execution.</li>

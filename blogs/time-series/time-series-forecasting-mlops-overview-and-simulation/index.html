@@ -16,7 +16,7 @@
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 <link rel="stylesheet" href="/book.min.f8de3645fe00591b41524aee174e19edd98a22255a2930a0cdc82a94835ba387.css" integrity="sha256-&#43;N42Rf4AWRtBUkruF04Z7dmKIiVaKTCgzcgqlINbo4c=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.e51c5ae7c24dc8999f81744a8c829682cb7ee2962b51787672f95e54ea09cde9.js" integrity="sha256-5Rxa58JNyJmfgXRKjIKWgst&#43;4pYrUXh2cvleVOoJzek=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.42a5a2e0b12c33ac6b64a123673b60d577b577c486c432b011aafc5253281829.js" integrity="sha256-QqWi4LEsM6xrZKEjZztg1Xe1d8SGxDKwEar8UlMoGCk=" crossorigin="anonymous"></script>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-KCH0X75V1Q"></script>
 <script>
@@ -318,7 +318,6 @@ https://github.com/alex-shpak/hugo-book
 </table>
 <hr>
 <p>This blog is a part of a series of blogs based on MLOps workflows we built. In this blog, we will be talking about the time series solution developed using AWS sagemaker pipeline. For more details and a deeper understanding of MLOps, components used and the types of components; go through our <a href="../../end-to-end-mlops-on-aws-part1-introduction/">previous blog</a>
-. You can find the solution code repository <a href="https://github.com/SageMaker-MLOps-Samples/MLOps-TS-Forecasting" target="_blank" rel="noopener">here</a>
 .</p>
 <h2 id="use-case">
   <strong>Use Case:</strong>
@@ -422,10 +421,10 @@ https://github.com/alex-shpak/hugo-book
 <ul>
 <li>To run the simulation inference pipeline was scheduled to run every hour, for a period of 14 hours: to generate inference for <strong>14 consecutive days</strong>.</li>
 <li>The table above shows the details of all the 14 runs. Before starting the inference pipeline runs we ran the train pipeline to train the model on latest actuals data (till date 22-02-2020).</li>
-<li>Inference pipeline also check if the <strong>cooling period</strong> is going on for the trained model which in our case is 7 days (= lookahead period). Hence, we will not check for model drift even in first 7 runs, and so the retraining pipeline will definitely won’t be triggered till 07-03-2020 inference date.</li>
+<li>Inference pipeline also check if the <strong>cooling period</strong> is going on for the trained model which in our case is 7 days (= lookahead period). Hence, we will not check for model drift in first 7 runs, and so the retraining pipeline won’t be triggered till 07-03-2020 inference date.</li>
 <li>For the first 10 runs no drift was detected. The data had <strong>natural drift</strong> which was <strong>detected on 11th run</strong> (highlighted with green in the table). Therefore, inference pipeline triggers the training pipeline.</li>
-<li>The training pipeline then trained a new model (with latest actuals data till 03-03-2020) and save the artifacts in s3, update the parameter store with new artifacts paths generated during re-training.</li>
-<li>In the next 3 runs inference pipeline generateed forecast with the new model.</li>
+<li>The training pipeline then trained a new model (with latest actuals data till 03-03-2020) and saved the artifacts in s3, updated the parameter store with new artifacts paths generated during re-training.</li>
+<li>In the next 3 runs, inference pipeline generated forecast with the newly trained model.</li>
 </ul>
 <h3 id="conclusions">
   <strong>Conclusions:</strong>
